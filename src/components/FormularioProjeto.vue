@@ -20,7 +20,6 @@
 </template>
 
 <script lang="ts">
-/* eslint-disable */
 import { defineComponent } from 'vue';
 import { useStore } from '@/store';
 import { ADICIONA_PROJETO, EDITAR_PROJETO } from "@/store/tipo-mutacoes";

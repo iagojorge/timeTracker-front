@@ -3,7 +3,6 @@ import { createStore, Store, useStore as vuexUseStore} from "vuex";
 import { InjectionKey } from 'vue';
 import { ADICIONA_PROJETO, EDITAR_PROJETO, EXCLUIR_PROJETO } from "./tipo-mutacoes";
 
-/* eslint-disable */
 
 interface Estado {
     projetos: IProjeto[]

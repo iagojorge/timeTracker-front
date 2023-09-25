@@ -10,7 +10,6 @@
   </template>
   
   <script lang="ts">
-  /* eslint-disable */
   
   import { defineComponent } from 'vue';
   import FormularioTempo from '../components/FormularioTempo.vue';

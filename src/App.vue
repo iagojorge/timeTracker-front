@@ -12,7 +12,6 @@
 </template>
 
 <script lang="ts">
-/* eslint-disable */
 
 import { defineComponent } from 'vue';
 import MenuLateral from './components/MenuLateral.vue'
