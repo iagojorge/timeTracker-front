@@ -17,7 +17,7 @@
                 </button>
             </div>
         </form>
-        <table class="table is-fullwidth">
+        <table class="table is-fullwidth is-narrow">
             <thread>
                 <tr>
                     <th>ID</th>
@@ -36,25 +36,27 @@
 
 <script lang="ts">
 /* eslint-disable */
-import { defineComponent } from 'vue';
-import IProjeto from '../interfaces/IProjeto'
+import { defineComponent, computed } from 'vue';
+import { useStore } from '@/store';
 
 export default defineComponent({
     name: 'Projetos',
     data(){
         return{
             nomeProjeto: "",
-            projetos: [] as IProjeto[]
         }
     },
     methods: {
         salvar(){
-            const projeto: IProjeto = {
-                nome: this.nomeProjeto,
-                id: new Date().toISOString()
-            }
-            this.projetos.push(projeto)
+            this.store.commit('ADICIONA_PROJETO', this.nomeProjeto)
             this.nomeProjeto = ""
+        }
+    },
+    setup () {
+        const store = useStore()
+        return {
+            store,
+            projetos: computed(() => store.state.projetos)
         }
     }
 })
