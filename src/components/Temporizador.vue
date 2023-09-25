@@ -17,7 +17,6 @@
 </template>
 
 <script lang="ts">
-    /* eslint-disable */
     import { defineComponent } from 'vue';
 
     import Cronometro from './Cronometro.vue';

@@ -37,7 +37,6 @@
 </template>
 
 <script lang="ts">
-/* eslint-disable */
 import { defineComponent, computed } from 'vue';
 import { useStore } from '@/store';
 import {EXCLUIR_PROJETO} from '@/store/tipo-mutacoes'
