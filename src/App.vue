@@ -6,6 +6,7 @@
    </div>
    <div class="column is-three-quarter conteudo">
     <!-- Rota do view -->
+    <Notificacao/>
     <RouterView></RouterView>
    </div>
   </main>
@@ -14,12 +15,14 @@
 <script lang="ts">
 
 import { defineComponent } from 'vue';
-import MenuLateral from './components/MenuLateral.vue'
+import MenuLateral from '@/components/MenuLateral.vue'
+import Notificacao from '@/components/Notificacoes.vue'
 
 export default defineComponent({
   name: 'App',
   components: {
    MenuLateral,
+   Notificacao
   },
   data () {
     return {
