@@ -30,11 +30,12 @@
 
 <script lang="ts">
     import { computed, defineComponent } from 'vue';
+    import { useStore } from 'vuex';
+    import { TipoNotificacao } from '@/interfaces/INotificacao';
     import Temporizador from './Temporizador.vue';
-    import { useStore } from 'vuex'
-
-    import { key } from '../store'
-
+    import { key } from '@/store'
+    import useNotificador from '@/hooks/notificador'
+    
     export default defineComponent ({
         name: 'FormularioTempo',
         emits: ['emitSalvarTarefa'],
@@ -42,30 +43,37 @@
             Temporizador
         },
         data () {
-           return{
-            descricaoTarefa: '',
-            idProjeto : ''
-           } 
+            return{
+                descricaoTarefa: '',
+                idProjeto : ''
+            } 
         },
         methods: {
             finalizarTarefa (tempoDecorrido: number): void{
-                this.$emit('emitSalvarTarefa', {
-                    tempoTarefa: tempoDecorrido,
-                    descricao: this.descricaoTarefa,
-                    projeto: this.projetos.find(proj => proj.id == this.idProjeto)
-                })
-                this.descricaoTarefa = '';
+                const projeto = this.projetos.find((p) => p.id == this.idProjeto)
+                if(!projeto){
+                    this.notificar(TipoNotificacao.ATENCAO, 'Projeto', 'Selecione um projeto antes de finalizar a tarefa!')
+                }else{
+                    this.$emit('emitSalvarTarefa', {
+                        tempoTarefa: tempoDecorrido,
+                        descricao: this.descricaoTarefa,
+                        projeto: this.projetos.find(proj => proj.id == this.idProjeto)
+                    })
+                    this.descricaoTarefa = '';
+                }
             }
         },
         setup () {
-            const store = useStore(key)
+            const store = useStore(key);
+            const { notificar } = useNotificador();
             return {
-                projetos: computed(() => store.state.projetos)
+                projetos: computed(() => store.state.projetos),
+                notificar
             }
         }
-       
+        
     })
-
+    
 </script>
 
 <style>
