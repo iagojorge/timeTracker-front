@@ -22,9 +22,9 @@
 <script lang="ts">
 import { defineComponent } from 'vue';
 import { useStore } from '@/store';
-import { ADICIONA_PROJETO, EDITAR_PROJETO} from "@/store/tipo-mutacoes";
 import { TipoNotificacao } from '@/interfaces/INotificacao';
 import useNotificador from '@/hooks/notificador'
+import { CADASTRAS_PROJETOS, ALTERAR_PROJETOS } from '@/store/tipo.acoes';
 
 export default defineComponent({
     name: 'FormularioProjeto',
@@ -48,17 +48,23 @@ export default defineComponent({
         salvar(){
             if(this.id){
             /*Edição*/
-                this.store.commit(EDITAR_PROJETO,{
+                this.store.dispatch(ALTERAR_PROJETOS, {
                     id: this.id,
                     nome: this.nomeProjeto
-                })
+                }).then(this.sucessoRota).catch(this.sucessoRota)
             }else{
                 /*Adição*/
-                this.store.commit(ADICIONA_PROJETO, this.nomeProjeto)
-                this.notificar(TipoNotificacao.SUCESSO, 'Projeto', 'Projeto salvo com sucesso!')
+                this.store.dispatch(CADASTRAS_PROJETOS, this.nomeProjeto)
+                    .then(this.sucessoRota).catch(this.erroRota)
             }
-            this.nomeProjeto = ""
-            this.$router.push('/projetos')
+        },
+        sucessoRota () {
+            this.notificar(TipoNotificacao.SUCESSO, 'Projeto', 'Projeto salvo com sucesso!')
+                this.nomeProjeto = ""
+                this.$router.push('/projetos')
+        },
+        erroRota() {
+            this.notificar(TipoNotificacao.ERRO, 'Projeto', 'Erro ao salvar o projeto')
         }
     },
     setup () {
