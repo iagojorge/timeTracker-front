@@ -40,6 +40,7 @@
 </template>
 
 <script lang="ts">
+
 import { defineComponent, computed } from "vue";
 import { useStore } from "@/store";
 import { DELETAR_PROJETOS } from "@/store/tipo.acoes";
@@ -80,4 +81,5 @@ export default defineComponent({
     };
   },
 });
+
 </script>

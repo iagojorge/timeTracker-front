@@ -31,6 +31,7 @@ export default defineComponent({
     id: {
       type: String,
     },
+
   },
   setup(props) {
     const router = useRouter();
