@@ -29,7 +29,7 @@
 </template>
 
 <script lang="ts">
-    import { computed, defineComponent } from 'vue';
+    import { computed, defineComponent, ref } from 'vue';
     import { useStore } from 'vuex';
     import { TipoNotificacao } from '@/interfaces/INotificacao';
     import Temporizador from './Temporizador.vue';
@@ -42,33 +42,33 @@
         components: {
             Temporizador
         },
-        data () {
-            return{
-                descricaoTarefa: '',
-                idProjeto : ''
-            } 
-        },
-        methods: {
-            finalizarTarefa (tempoDecorrido: number): void{
-                const projeto = this.projetos.find((p) => p.id == this.idProjeto)
-                if(!projeto){
-                    this.notificar(TipoNotificacao.ATENCAO, 'Projeto', 'Selecione um projeto antes de finalizar a tarefa!')
-                }else{
-                    this.$emit('emitSalvarTarefa', {
-                        tempoTarefa: tempoDecorrido,
-                        descricao: this.descricaoTarefa,
-                        projeto: this.projetos.find(proj => proj.id == this.idProjeto)
-                    })
-                    this.descricaoTarefa = '';
-                }
-            }
-        },
-        setup () {
+        setup (props, {emit}) {
             const store = useStore(key);
             const { notificar } = useNotificador();
+            const projetos= computed(() => store.state.projeto.projetos);
+            const descricaoTarefa = ref("");
+            const idProjeto = ref("");
+
+            const finalizarTarefa = function (tempoDecorrido: number): void {
+                const projeto = projetos.value.find((p) => p.id == idProjeto.value)
+                if(!projeto){
+                    notificar(TipoNotificacao.ATENCAO, 'Projeto', 'Selecione um projeto antes de finalizar a tarefa!')
+                }else{
+                    emit('emitSalvarTarefa', {
+                        tempoTarefa: tempoDecorrido,
+                        descricao: descricaoTarefa.value,
+                        projeto: projetos.value.find(proj => proj.id == idProjeto.value)
+                    })
+                    descricaoTarefa.value = '';
+                }
+            }
+
+
             return {
-                projetos: computed(() => store.state.projetos),
-                notificar
+                descricaoTarefa,
+                idProjeto,
+                projetos,
+                finalizarTarefa
             }
         }
         
