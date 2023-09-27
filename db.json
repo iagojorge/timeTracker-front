@@ -17,7 +17,7 @@
     {
       "id": 1,
       "tempoTarefa": 120,
-      "descricao": "teste3",
+      "descricao": "TESTE",
       "projeto": {
         "nome": "Estudando vue.js",
         "id": 4
