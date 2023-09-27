@@ -1,41 +1,127 @@
-
 <template>
-      <FormularioTempo @emitSalvarTarefa="salvarTarefa"/>
-      <div class="lista">
-        <Tarefa v-for="(tarefa, index) in tarefas" :key="index" :tarefa="tarefa"/>
-        <box v-if="tarefas.length == 0">
-          Nenhuma tarefa encontrada
-        </box>
-      </div>
-  </template>
-  
-  <script lang="ts">
-  
-  import { defineComponent } from 'vue';
-  import FormularioTempo from '../components/FormularioTempo.vue';
-  import Tarefa from '../components/Tarefa.vue';
-  import ITarefa from '../interfaces/ITarefa';
-  import Box from '../components/Box.vue';
-  
-  export default defineComponent({
-    name: 'App',
-    components: {
-     FormularioTempo,
-     Tarefa,
-     Box
-    },
-    data () {
-      return {
-        tarefas: [] as ITarefa[],
-      }
-    },
-    methods: {
-      salvarTarefa (tarefa : ITarefa) {
-        this.tarefas.push(tarefa);
-      }
-    }
-  });
-  </script>
-  
+  <FormularioTempo @emitSalvarTarefa="salvarTarefa" />
+  <div class="lista">
+    <div class="field">
+      <p class="control has-icons-left has-icons-right">
+        <input
+          class="input"
+          type="text"
+          placeholder="Buscar tarefa"
+          v-model="filtro"
+        />
+        <span class="icon is-small is-left">
+          <i class="fas fa-search"></i>
+        </span>
+      </p>
+    </div>
+    <Tarefa
+      v-for="(tarefa, index) in tarefas"
+      :key="index"
+      :tarefa="tarefa"
+      @aoTarefaClicada="selecionarTarefa"
+    />
+    <box v-if="tarefas?.length == 0"> Nenhuma tarefa encontrada </box>
+    <Modal :mostrar="tarefaSelecionada != null" v-if="tarefaSelecionada">
+      <template v-slot:cabecalho>
+        <p class="modal-card-title">Editar</p>
+        <button class="delete" aria-label="close" @click="close"></button>
+      </template>
+      <template v-slot:corpo>
+        <div class="field">
+          <label for="descricaoTarefa" class="label">Descrição</label>
+          <input
+            type="text"
+            class="input"
+            v-model="tarefaSelecionada.descricao"
+            id="nomeProjeto"
+          />
+        </div>
+      </template>
+      <template v-slot:footer>
+        <button class="button is-success" @click="editarTarefa">Salvar</button>
+        <button class="button" @click="close">Cancelar</button>
+      </template>
+    </Modal>
+  </div>
+</template>
 
-  
+<script lang="ts">
+import { computed, defineComponent, ref, watchEffect } from "vue";
+import FormularioTempo from "../components/FormularioTempo.vue";
+import Tarefa from "../components/Tarefa.vue";
+import Box from "../components/Box.vue";
+import { useStore } from "@/store";
+import ITarefa from "@/interfaces/ITarefa";
+import useNotificador from "@/hooks/notificador";
+import { TipoNotificacao } from "@/interfaces/INotificacao";
+import {
+  OBTER_TAREFAS,
+  CADASTRAR_TAREFAS,
+  OBTER_PROJETOS,
+  ALTERAR_TAREFAS,
+} from "@/store/tipo.acoes";
+import Modal from "@/components/Modal.vue";
+
+export default defineComponent({
+  name: "App",
+  components: {
+    FormularioTempo,
+    Tarefa,
+    Box,
+    Modal,
+  },
+  data() {
+    return {
+      tarefaSelecionada: null as ITarefa | null,
+    };
+  },
+  methods: {
+    salvarTarefa(tarefa: ITarefa) {
+      this.store.dispatch(CADASTRAR_TAREFAS, tarefa);
+    },
+    selecionarTarefa(tarefa: ITarefa) {
+      this.tarefaSelecionada = tarefa;
+    },
+    close() {
+      this.tarefaSelecionada = null;
+    },
+    editarTarefa() {
+      this.store
+        .dispatch(ALTERAR_TAREFAS, this.tarefaSelecionada)
+        .then(() => {
+          this.notificar(
+            TipoNotificacao.SUCESSO,
+            "Tarefa",
+            "Tarefa alterada com sucesso!"
+          );
+          this.close();
+        })
+        .catch(() => {
+          this.notificar(
+            TipoNotificacao.ERRO,
+            "Tarefa",
+            "Erro ao alterar a tarefa"
+          );
+        });
+    },
+  },
+  setup() {
+    const { notificar } = useNotificador();
+    const store = useStore();
+    store.dispatch(OBTER_TAREFAS);
+    store.dispatch(OBTER_PROJETOS);
+    const filtro = ref("");
+
+    watchEffect(() => {
+      store.dispatch(OBTER_TAREFAS, filtro.value);
+    });
+
+    return {
+      tarefas: computed(() => store.state.tarefa.tarefas),
+      store,
+      notificar,
+      filtro,
+    };
+  },
+});
+</script>

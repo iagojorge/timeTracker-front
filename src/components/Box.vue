@@ -1,22 +1,19 @@
 <template>
-    <div class="box has-text-weight-build">
-        <slot></slot>
-    </div>
+  <div class="box has-text-weight-build">
+    <slot></slot>
+  </div>
 </template>
 
 <script lang="ts">
-
-import { defineComponent } from 'vue';
+import { defineComponent } from "vue";
 
 export default defineComponent({
-    name: 'Box'
-})
-
+  name: "Box",
+});
 </script>
 
 <style scoped>
-.box{
-    background: #FAF0CA;
+.box {
+  background: #faf0ca;
 }
 </style>
-

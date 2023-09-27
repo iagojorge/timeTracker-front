@@ -1,80 +1,88 @@
 <template>
-    <section>
-        <form @submit.prevent="salvar">
-            <div class="field">
-                <label for="nomeProjeto" class="label">Nome do projeto</label>
-                <input
-                    type="text"
-                    class="input"
-                    v-model="nomeProjeto"
-                    id="nomeProjeto"
-                />
-            </div>
-            <div class="field">
-                <button class="button" type="submit">
-                    Salvar
-                </button>
-            </div>
-        </form>
-    </section>
+  <section>
+    <form @submit.prevent="salvar">
+      <div class="field">
+        <label for="nomeProjeto" class="label">Nome do projeto</label>
+        <input
+          type="text"
+          class="input"
+          v-model="nomeProjeto"
+          id="nomeProjeto"
+        />
+      </div>
+      <div class="field">
+        <button class="button" type="submit">Salvar</button>
+      </div>
+    </form>
+  </section>
 </template>
 
 <script lang="ts">
-import { defineComponent } from 'vue';
-import { useStore } from '@/store';
-import { TipoNotificacao } from '@/interfaces/INotificacao';
-import useNotificador from '@/hooks/notificador'
-import { CADASTRAS_PROJETOS, ALTERAR_PROJETOS } from '@/store/tipo.acoes';
+import { defineComponent, ref } from "vue";
+import { useStore } from "@/store";
+import { TipoNotificacao } from "@/interfaces/INotificacao";
+import useNotificador from "@/hooks/notificador";
+import { CADASTRAR_PROJETOS, ALTERAR_PROJETOS } from "@/store/tipo.acoes";
+import { useRouter } from "vue-router";
 
 export default defineComponent({
-    name: 'FormularioProjeto',
-    data(){
-        return{
-            nomeProjeto: "",
-        }
+  name: "FormularioProjeto",
+  props: {
+    id: {
+      type: String,
     },
-    props: {
-        id: {
-            type: String
-        }
-    },
-    mounted () {
-        if(this.id){
-            const projeto = this.store.state.projetos.find(proj => proj.id == this.id)
-            this.nomeProjeto = projeto?.nome || ''
-        }
-    },
-    methods: {
-        salvar(){
-            if(this.id){
-            /*Edição*/
-                this.store.dispatch(ALTERAR_PROJETOS, {
-                    id: this.id,
-                    nome: this.nomeProjeto
-                }).then(this.sucessoRota).catch(this.sucessoRota)
-            }else{
-                /*Adição*/
-                this.store.dispatch(CADASTRAS_PROJETOS, this.nomeProjeto)
-                    .then(this.sucessoRota).catch(this.erroRota)
-            }
-        },
-        sucessoRota () {
-            this.notificar(TipoNotificacao.SUCESSO, 'Projeto', 'Projeto salvo com sucesso!')
-                this.nomeProjeto = ""
-                this.$router.push('/projetos')
-        },
-        erroRota() {
-            this.notificar(TipoNotificacao.ERRO, 'Projeto', 'Erro ao salvar o projeto')
-        }
-    },
-    setup () {
-        const store = useStore()
-        const { notificar } = useNotificador()
-        return {
-            store,
-            notificar
-        }
-    }
-})
 
+  },
+  setup(props) {
+    const router = useRouter();
+    const store = useStore();
+    const { notificar } = useNotificador();
+
+    const nomeProjeto = ref("");
+
+    if (props.id) {
+      const projeto = store.state.projeto.projetos.find(
+        (proj) => proj.id == props.id
+      );
+      nomeProjeto.value = projeto?.nome || "";
+    }
+
+    const sucessoRota = function () {
+      notificar(
+        TipoNotificacao.SUCESSO,
+        "Projeto",
+        "Projeto salvo com sucesso!"
+      );
+      nomeProjeto.value = "";
+      router.push("/projetos");
+    };
+
+    const erroRota = function () {
+      notificar(TipoNotificacao.ERRO, "Projeto", "Erro ao salvar o projeto");
+    };
+
+    const salvar = function () {
+      if (props.id) {
+        /*Edição*/
+        store
+          .dispatch(ALTERAR_PROJETOS, {
+            id: props.id,
+            nome: nomeProjeto.value,
+          })
+          .then(sucessoRota)
+          .catch(erroRota);
+      } else {
+        /*Adição*/
+        store
+          .dispatch(CADASTRAR_PROJETOS, nomeProjeto.value)
+          .then(sucessoRota)
+          .catch(erroRota);
+      }
+    };
+    return {
+      nomeProjeto,
+      salvar,
+    };
+  },
+});
 </script>

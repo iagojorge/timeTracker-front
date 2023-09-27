@@ -1,58 +1,47 @@
-import IProjeto from "@/interfaces/IProjeto";
-import { createStore, Store, useStore as vuexUseStore} from "vuex";
-import { InjectionKey } from 'vue';
-import { NOTIFICAR, DEFINIR_PROJETO } from "./tipo-mutacoes";
+
+import { createStore, Store, useStore as vuexUseStore } from "vuex";
+import { InjectionKey } from "vue";
+import { NOTIFICAR } from "./tipo-mutacoes";
 import { INotificacao } from "@/interfaces/INotificacao";
-import { CADASTRAS_PROJETOS, OBTER_PROJETOS, ALTERAR_PROJETOS, DELETAR_PROJETOS } from "./tipo.acoes";
-import http from "@/http";
+import { EstadoProjeto, projeto } from "./modules/projeto";
+import { EstadoTarefa, tarefa } from "./modules/tarefa";
 
 
-
-interface Estado {
-    projetos: IProjeto[]
-    notificacoes: INotificacao[]
+export interface Estado {
+  notificacoes: INotificacao[];
+  tarefa: EstadoTarefa;
+  projeto: EstadoProjeto;
 }
 
-export const key: InjectionKey<Store<Estado>> = Symbol()
+export const key: InjectionKey<Store<Estado>> = Symbol();
 
 export const store = createStore<Estado>({
-    state: {
-        projetos: [],
-        notificacoes: []
+  state: {
+    notificacoes: [],
+    projeto: {
+      projetos: [],
     },
-    mutations: {
-        [DEFINIR_PROJETO](state, projetos: IProjeto[]){
-            state.projetos = projetos
-        },
-        [NOTIFICAR](state, novaNotificacao: INotificacao){
-            novaNotificacao.id = new Date().getTime()
-            state.notificacoes.push(novaNotificacao)
-            setTimeout(() => {
-                state.notificacoes = state.notificacoes.filter(notificacao => notificacao.id != novaNotificacao.id)
-            }, 3000)
-        }
+    tarefa: {
+      tarefas: [],
     },
-    actions: {
-        [OBTER_PROJETOS] ( {commit} ){
-            http.get('projetos')
-                .then(response => commit(DEFINIR_PROJETO, response.data ))
-        },
-        [CADASTRAS_PROJETOS] ( contexto, nomeProjeto:string ){
-            return http.post('/projetos', {
-                nome: nomeProjeto
-            })
-        },
-        [ALTERAR_PROJETOS] ( contexto, projeto:IProjeto ){
-            return http.put(`/projetos/${projeto.id}`, projeto)
-        },
-        [DELETAR_PROJETOS] ( contexto, id:string ){
-            return http.delete(`/projetos/${id}`)   
-                .then(()=> { this.dispatch(OBTER_PROJETOS)})
-        }
-    }
-})
+  },
+  mutations: {
+    [NOTIFICAR](state, novaNotificacao: INotificacao) {
+      novaNotificacao.id = new Date().getTime();
+      state.notificacoes.push(novaNotificacao);
+      setTimeout(() => {
+        state.notificacoes = state.notificacoes.filter(
+          (notificacao) => notificacao.id != novaNotificacao.id
+        );
+      }, 3000);
+    },
+  },
+  modules: {
+    projeto,
+    tarefa,
+  },
+});
 
 export function useStore(): Store<Estado> {
-    return vuexUseStore(key);
-
+  return vuexUseStore(key);
 }
