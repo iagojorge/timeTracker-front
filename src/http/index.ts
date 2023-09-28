@@ -2,7 +2,7 @@
 import axios, { AxiosInstance } from "axios";
 
 const clientHttp: AxiosInstance = axios.create({
-  baseURL: "http://localhost:3000/",
+  baseURL: "https://tracker-db.vercel.app/",
 });
 
 export default clientHttp;
