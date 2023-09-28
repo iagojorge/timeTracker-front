@@ -1,5 +1,5 @@
 <template>
-  <FormularioTempo @emitSalvarTarefa="salvarTarefa" />
+  
   <div class="lista">
     <div class="field">
       <p class="control has-icons-left has-icons-right">
@@ -47,7 +47,6 @@
 
 <script lang="ts">
 import { computed, defineComponent, ref, watchEffect } from "vue";
-import FormularioTempo from "../components/FormularioTempo.vue";
 import Tarefa from "../components/Tarefa.vue";
 import Box from "../components/Box.vue";
 import { useStore } from "@/store";
@@ -65,7 +64,6 @@ import Modal from "@/components/Modal.vue";
 export default defineComponent({
   name: "App",
   components: {
-    FormularioTempo,
     Tarefa,
     Box,
     Modal,

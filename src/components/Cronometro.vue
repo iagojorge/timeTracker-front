@@ -1,9 +1,8 @@
 <template>
   <section>
-    <span class="icon display">
-      <i class="fas fa-stopwatch"></i>
-    </span>
-    <strong class="display">{{ tempoCorrido }}</strong>
+    <div class="center">
+      <h1 class="relogio">{{ tempoCorrido }}</h1>
+    </div>
   </section>
 </template>
 
@@ -31,5 +30,22 @@ export default defineComponent({
 <style scoped>
 .display {
   color: var(--texto-primario);
+}
+
+.center {
+  text-align: center;
+}
+
+.relogio {
+  font-family: 'relogio-fonte', sans-serif;
+  color: white;
+  font-size: 70px;
+  text-align: center;
+}
+
+@font-face {
+  font-family: 'relogio-fonte';
+  src: url('../assets/font/DS-DIGI.TTF') format('truetype');
+  /* Adicione outros formatos da fonte, se necessário */
 }
 </style>

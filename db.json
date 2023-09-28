@@ -11,6 +11,10 @@
     {
       "nome": "teste",
       "id": 11
+    },
+    {
+      "id": 12,
+      "nome": "teste3"
     }
   ],
   "tarefas": [
@@ -58,7 +62,42 @@
         "nome": "Estudando vue.js23"
       },
       "id": 5
-
+    },
+    {
+      "tempoTarefa": 3,
+      "descricao": "teste",
+      "projeto": {
+        "nome": "teste",
+        "id": 11
+      },
+      "id": 6
+    },
+    {
+      "tempoTarefa": 0,
+      "descricao": "",
+      "projeto": {
+        "nome": "teste",
+        "id": 11
+      },
+      "id": 7
+    },
+    {
+      "tempoTarefa": 12,
+      "descricao": "teste",
+      "projeto": {
+        "nome": "teste",
+        "id": 11
+      },
+      "id": 8
+    },
+    {
+      "tempoTarefa": 6,
+      "descricao": "teste",
+      "projeto": {
+        "nome": "teste",
+        "id": 11
+      },
+      "id": 9
     }
   ]
 }

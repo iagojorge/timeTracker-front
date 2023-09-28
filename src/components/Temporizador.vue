@@ -1,18 +1,23 @@
 <template>
-  <div class="is-flex is-aligh-items-center is-justify-content-space-between">
+  <div class="-aligh-items-center">
     <cronometro :tempoSegundos="tempoSegundos" />
-    <button class="button" @click="iniciar" :disabled="cronometroRodando">
+  </div>
+  <div class="button-container">
+    <a href="#" class="circle-button red" v-if="!cronometroRodando" @click="iniciar" >
       <span class="icon">
         <i class="fas fa-play"></i>
       </span>
-      <span>Play</span>
-    </button>
-    <button class="button" @click="finalizar" :disabled="!cronometroRodando">
+    </a>
+    <a href="#" class="circle-button red" v-if="cronometroRodando" @click="pause" >
+      <span class="icon">
+        <i class="fas fa-pause"></i>
+      </span>
+    </a>
+    <a href="#" class="circle-button" @click="finalizar" :class="{ 'icon-disabled': !tempoSegundos }">
       <span class="icon">
         <i class="fas fa-stop"></i>
       </span>
-      <span>Stop</span>
-    </button>
+    </a>
   </div>
 </template>
 
@@ -39,10 +44,11 @@ export default defineComponent({
   /*Funções de execução do usuario*/
   methods: {
     iniciar() {
-      this.cronometroRodando = true;
-      this.cronometro = setInterval(() => {
-        this.tempoSegundos += 1;
-      }, 1000);
+        this.cronometroRodando = true;
+
+        this.cronometro = setInterval(() => {
+            this.tempoSegundos += 1;
+         }, 1000);
     },
     finalizar() {
       this.cronometroRodando = false;
@@ -50,6 +56,40 @@ export default defineComponent({
       this.$emit("temporizadorFim", this.tempoSegundos);
       this.tempoSegundos = 0;
     },
+    pause(){
+      this.cronometroRodando = false;
+      clearInterval(this.cronometro);
+    },
   },
 });
 </script>
+
+<style>
+  .circle-button {
+    width: 60px;
+    height: 60px;
+    background-color: #4c4c4c; 
+    border-radius: 50%; 
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
+    color: #fff; 
+    font-size: 24px; 
+  }
+
+  .icon-disabled {
+    opacity: 0.5; 
+    pointer-events: none; 
+  }
+
+  .red{
+    background-color: red;
+  }
+
+  .button-container {
+    display: flex; 
+    justify-content: center; 
+    gap: 10px; 
+  }
+</style>
