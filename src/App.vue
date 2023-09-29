@@ -3,11 +3,11 @@
     class="columns is-gapless is-multiline"
     :class="{ 'modo-escuro': modoEscuroAtivo }"
   >
-    <div class="column is-one-quarter">
-      <MenuLateral @temaAlterado="trocarTema" />
+    <div class="column is-one-quarter menu-lateral">
+      <MenuLateral/>
     </div>
     <div class="column is-three-quarter conteudo">
-      <MenuSuperior/>
+      <MenuSuperior @temaAlterado="trocarTema"/>
       <!-- Rota do view -->
       <Notificacao />
       <RouterView></RouterView>
@@ -51,8 +51,13 @@ export default defineComponent({
 }
 
 main {
-  --bg-primario: #171616;
+  --bg-primario: #white;
   --texto-primario: #cd7e75;
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
 }
 
 main.modo-escuro {
@@ -60,12 +65,17 @@ main.modo-escuro {
   --texto-primario: #cd7e75;
 }
 
-.column.is-one-quarter {
-  box-shadow: 5px 0 10px rgba(0, 0, 0, 0.1);
-}
-
 .conteudo {
   background-color: var(--bg-primario);
 }
+.menu-lateral{
+  z-index: 2;
+}
+
+@font-face {
+  font-family: 'Inter';
+  src: url('./assets/font/Inter-VariableFont_slnt\,wght.ttf') format('truetype');
+}
+
 
 </style>

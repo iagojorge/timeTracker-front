@@ -1,25 +1,6 @@
 <template>
   <header>
       <FormularioCronometro @emitSalvarTarefa="salvarTarefa"/>
-      <nav class="panel mt-5">
-        <ul>
-          <li>
-            <RouterLink to="/" class="link">
-              <i class="fas fa-tasks"></i>
-              tarefas
-            </RouterLink>
-          </li>
-          <li>
-            <RouterLink to="/projetos" class="link">
-              <i class="fas fa-project-diagram"></i>
-              projetos
-            </RouterLink>
-          </li>
-        </ul>
-      </nav>
-  
-      <i class="fa-solid fa-moon temaButton" @click="alterarTema" v-if="!modoEscuro"></i>
-      <i class="fa-solid fa-sun temaButton" @click="alterarTema"  v-if="modoEscuro"></i>
   </header>
 </template>
 
@@ -35,26 +16,7 @@ export default defineComponent({
   components:{
     FormularioCronometro
   },
-  emits: ["temaAlterado"],
-  data() {
-    return {
-      modoEscuro: false,
-    };
-  },
-  computed: {
-    textoTema() {
-      if (this.modoEscuro) {
-        return "Desativar modo escuro";
-      } else {
-        return "Ativar modo escuro";
-      }
-    },
-  },
   methods: {
-    alterarTema() {
-      this.modoEscuro = !this.modoEscuro;
-      this.$emit("temaAlterado", this.modoEscuro);
-    },
     salvarTarefa(tarefa: ITarefa) {
       this.store.dispatch(CADASTRAR_TAREFAS, tarefa);
     },
@@ -81,28 +43,5 @@ header {
     padding: 2.5rem;
     height: auto;
   }
-}
-.panel li {
-  margin: 8px 0;
-}
-.link {
-  color: #fff;
-}
-.link:hover {
-  color: #faf0ca;
-}
-.link.router-link-active {
-  color: #faf0ca;
-}
-
-.temaButton {
-  font-size: 50px;
-  color: white;
-  cursor: pointer;
-  position: absolute;
-  bottom: 0;
-  height: 150px;
-  padding: 100px;
-  z-index: 105;
 }
 </style>

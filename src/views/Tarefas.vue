@@ -1,19 +1,6 @@
 <template>
   
   <div class="lista">
-    <div class="field">
-      <p class="control has-icons-left has-icons-right">
-        <input
-          class="input"
-          type="text"
-          placeholder="Buscar tarefa"
-          v-model="filtro"
-        />
-        <span class="icon is-small is-left">
-          <i class="fas fa-search"></i>
-        </span>
-      </p>
-    </div>
     <Tarefa
       v-for="(tarefa, index) in tarefas"
       :key="index"
@@ -46,7 +33,7 @@
 </template>
 
 <script lang="ts">
-import { computed, defineComponent, ref, watchEffect } from "vue";
+import { computed, defineComponent} from "vue";
 import Tarefa from "../components/Tarefa.vue";
 import Box from "../components/Box.vue";
 import { useStore } from "@/store";
@@ -54,7 +41,6 @@ import ITarefa from "@/interfaces/ITarefa";
 import useNotificador from "@/hooks/notificador";
 import { TipoNotificacao } from "@/interfaces/INotificacao";
 import {
-  OBTER_TAREFAS,
   CADASTRAR_TAREFAS,
   OBTER_PROJETOS,
   ALTERAR_TAREFAS,
@@ -106,19 +92,13 @@ export default defineComponent({
   setup() {
     const { notificar } = useNotificador();
     const store = useStore();
-    store.dispatch(OBTER_TAREFAS);
     store.dispatch(OBTER_PROJETOS);
-    const filtro = ref("");
-
-    watchEffect(() => {
-      store.dispatch(OBTER_TAREFAS, filtro.value);
-    });
 
     return {
       tarefas: computed(() => store.state.tarefa.tarefas),
       store,
       notificar,
-      filtro,
+
     };
   },
 });
