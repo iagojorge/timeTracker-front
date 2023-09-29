@@ -14,6 +14,8 @@ export default defineComponent({
 
 <style scoped>
 .box {
-  background: #faf0ca;
+  margin-top: 20px;
+  padding: 50px;
+  background: #2D2D2D;
 }
 </style>

@@ -3,14 +3,6 @@
       <Temporizador @temporizadorFim="finalizarTarefa"/>
       <div class="column" role="form" aria-label="Nova Tarefa">
         
-        <div class="space" role="form" aria-label="Descrição da Tarefa">
-          <input
-          type="text"
-          class="input input-tarefa is-fullwidth"
-          placeholder="Descrição da tarefa"
-          v-model="descricaoTarefa"
-          />
-        </div>
         <div class="select">
           <select class="custom-select" v-model="idProjeto">
             <option value="">Selecione o projeto</option>

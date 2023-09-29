@@ -5,8 +5,4 @@ export const DEFINIR_PROJETO = 'DEFINIR_PROJETO'
 
 export const NOTIFICAR = 'NOTIFICAR'
 
-export const DEFINIR_TAREFAS = 'DEFINIR_TAREFAS'
-export const ADCIONA_TAREFA = 'ADCIONA_TAREFA'
-export const EDITAR_TAREFA = 'EDITAR_TAREFA'
-
 export const GET_FORM = 'GET_FORM'

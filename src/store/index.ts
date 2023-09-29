@@ -1,15 +1,13 @@
 
 import { createStore, Store, useStore as vuexUseStore } from "vuex";
 import { InjectionKey } from "vue";
-import { GET_FORM, NOTIFICAR } from "./tipo-mutacoes";
+import { NOTIFICAR } from "./tipo-mutacoes";
 import { INotificacao } from "@/interfaces/INotificacao";
 import { EstadoProjeto, projeto } from "./modules/projeto";
-import { EstadoTarefa, tarefa } from "./modules/tarefa";
 
 
 export interface Estado {
   notificacoes: INotificacao[];
-  tarefa: EstadoTarefa;
   projeto: EstadoProjeto;
 
 }
@@ -21,9 +19,6 @@ export const store = createStore<Estado>({
     notificacoes: [],
     projeto: {
       projetos: [],
-    },
-    tarefa: {
-      tarefas: [],
     },
   },
   mutations: {
@@ -38,8 +33,7 @@ export const store = createStore<Estado>({
     },
   },
   modules: {
-    projeto,
-    tarefa,
+    projeto
   },
 });
 

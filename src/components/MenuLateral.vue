@@ -1,30 +1,38 @@
 <template>
   <header>
-      <FormularioCronometro @emitSalvarTarefa="salvarTarefa"/>
+      <FormularioCronometro @emitSalvarTarefa="salvarProjeto"/>
   </header>
 </template>
 
 <script lang="ts">
 import { defineComponent } from "vue";
 import FormularioCronometro from './FormularioCronometro.vue'
-import ITarefa from "@/interfaces/ITarefa";
 import { useStore } from "@/store";
-import { CADASTRAR_TAREFAS } from "@/store/tipo.acoes";
+import { ALTERAR_PROJETOS } from "@/store/tipo.acoes";
+import IProjeto from "@/interfaces/IProjeto";
 
 export default defineComponent({
   name: "MenuLateral",
   components:{
     FormularioCronometro
   },
-  methods: {
-    salvarTarefa(tarefa: ITarefa) {
-      this.store.dispatch(CADASTRAR_TAREFAS, tarefa);
-    },
-  },
-  setup(){
+  setup(props){
     const store = useStore();
+
+    const salvarProjeto = function (projeto: IProjeto) {
+      console.log(projeto)
+      store.dispatch(ALTERAR_PROJETOS,{
+        id: projeto.id,
+        nome: projeto.nome,
+        tempo: projeto.tempo,
+        tempoTotal: projeto.tempoTotal + projeto.tempo,
+        tempoDia: projeto.tempoDia + projeto.tempoDia
+      });
+    }
+
     return{
-      store
+      store,
+      salvarProjeto
     }
   }
 });

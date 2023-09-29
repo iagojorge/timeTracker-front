@@ -64,7 +64,7 @@ export default defineComponent({
 });
 </script>
 
-<style>
+<style scoped>
   .circle-button {
     width: 60px;
     height: 60px;

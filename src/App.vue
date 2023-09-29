@@ -1,8 +1,7 @@
 <template>
   <main
-    class="columns is-gapless is-multiline"
-    :class="{ 'modo-escuro': modoEscuroAtivo }"
-  >
+    class="columns is-gapless is-multiline teste"
+    :class="{ 'modo-escuro': modoEscuroAtivo }">
     <div class="column is-one-quarter menu-lateral">
       <MenuLateral/>
     </div>
@@ -47,7 +46,7 @@ export default defineComponent({
 }
 
 .teste {
-  position: sticky;
+  background-color: #171616;
 }
 
 main {
@@ -67,6 +66,9 @@ main.modo-escuro {
 
 .conteudo {
   background-color: var(--bg-primario);
+  width: 100%;
+  padding-right: 0;
+  padding-left: 0;
 }
 .menu-lateral{
   z-index: 2;

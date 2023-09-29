@@ -1,6 +1,7 @@
 <template>
   <section>
     <div class="center">
+      <slot name="tempoDia"></slot>
       <h1 class="relogio">{{ tempoCorrido }}</h1>
     </div>
   </section>

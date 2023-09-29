@@ -4,8 +4,6 @@
         <div class="column is-3 menu-options">
           <RouterLink to="/" class="texto-nav" :class="{ 'texto-nav-active': $route.path === '/' }"> Dashboard </RouterLink>
           /
-          <RouterLink to="/" class="texto-nav" :class="{ 'texto-nav-active': $route.path === '/' }"> Tarefas </RouterLink>
-          /
           <RouterLink to="/projetos" class="texto-nav" :class="{ 'texto-nav-active': $route.path === '/projetos' }"> Projetos </RouterLink>
         </div>
         <div class="column is-6">
@@ -46,7 +44,6 @@
 
 <script lang="ts">
 import { defineComponent, ref, watchEffect } from "vue";
-import { OBTER_TAREFAS } from "@/store/tipo.acoes";
 import { useStore } from "@/store";
 export default defineComponent({
   name: "MenuSuperior",
@@ -78,10 +75,10 @@ export default defineComponent({
     const store = useStore();
     const filtro = ref("");
     let girando: boolean = false;
-    store.dispatch(OBTER_TAREFAS);
+  
 
     watchEffect(() => {
-    store.dispatch(OBTER_TAREFAS, filtro.value);
+    
     });
 
     return{
@@ -103,6 +100,10 @@ export default defineComponent({
     color: #9E9E9E;
     border: none;
   }
+
+.input-filtro::placeholder{
+  color:#9E9E9E
+}
 
 .filtro{
     margin-top: -10px;

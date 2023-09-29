@@ -2,7 +2,10 @@
   "projetos": [
     {
       "id": 9,
-      "nome": "comendo o olailson de quatro"
+      "nome": "comendo o olailson de quatro",
+      "tempo": 5000,
+      "tempoTotal": 5000,
+      "tempoDia": 10
     },
     {
       "id": 10,
@@ -15,134 +18,25 @@
     {
       "id": 12,
       "nome": "teste3"
-    }
-  ],
-  "tarefas": [
-    {
-      "id": 1,
-      "tempoTarefa": 120,
-      "descricao": "TESTE",
-      "projeto": {
-        "nome": "Estudando vue.js",
-        "id": 4
-      }
     },
     {
-      "tempoTarefa": 2,
-      "descricao": "Comendo o olailson de ladinho :)",
-      "projeto": {
-        "id": 5,
-        "nome": "PROJETO COMER O OLAILSON"
-      },
-      "id": 2
-    },
-    {
-      "tempoTarefa": 2,
-      "descricao": "Estudando vue.js",
-      "projeto": {
-        "nome": "PROJETO",
-        "id": 6
-      },
-      "id": 3
-    },
-    {
-      "tempoTarefa": 1,
-      "descricao": "Estudando vue.js",
-      "projeto": {
-        "id": 10,
-        "nome": "Estudando vue.js23"
-      },
-      "id": 4
-    },
-    {
-      "tempoTarefa": 1,
-      "descricao": "TTESTE",
-      "projeto": {
-        "id": 10,
-        "nome": "Estudando vue.js23"
-      },
-      "id": 5
-    },
-    {
-      "tempoTarefa": 3,
-      "descricao": "teste",
-      "projeto": {
-        "nome": "teste",
-        "id": 11
-      },
-      "id": 6
-    },
-    {
-      "tempoTarefa": 0,
-      "descricao": "",
-      "projeto": {
-        "nome": "teste",
-        "id": 11
-      },
-      "id": 7
-    },
-    {
-      "tempoTarefa": 12,
-      "descricao": "teste",
-      "projeto": {
-        "nome": "teste",
-        "id": 11
-      },
-      "id": 8
-    },
-    {
-      "tempoTarefa": 6,
-      "descricao": "teste",
-      "projeto": {
-        "nome": "teste",
-        "id": 11
-      },
-      "id": 9
-    },
-    {
-      "tempoTarefa": 1,
-      "descricao": "TESTE",
-      "projeto": {
-        "id": 9,
-        "nome": "comendo o olailson de quatro"
-      },
-      "id": 10
-    },
-    {
-      "tempoTarefa": 1,
-      "descricao": "123",
-      "projeto": {
-        "id": 9,
-        "nome": "comendo o olailson de quatro"
-      },
-      "id": 11
-    },
-    {
-      "tempoTarefa": 1,
-      "descricao": "teste",
-      "projeto": {
-        "id": 9,
-        "nome": "comendo o olailson de quatro"
-      },
-      "id": 12
-    },
-    {
-      "tempoTarefa": 2,
-      "descricao": "teste",
-      "projeto": {
-        "id": 9,
-        "nome": "comendo o olailson de quatro"
-      },
+      "nome": "",
       "id": 13
     },
     {
-      "tempoTarefa": 1,
-      "descricao": "teste",
-      "projeto": {
-        "id": 9,
-        "nome": "comendo o olailson de quatro"
-      },
+      "nome": "",
       "id": 14
+    },
+    {
+      "nome": "teste",
+      "id": 15
+    },
+    {
+      "nome": "comendo o olailson de quatro",
+      "tempo": 5000,
+      "tempoTotal": 5000,
+      "tempoDia": 10,
+      "id": 16
     }
   ]
 }
