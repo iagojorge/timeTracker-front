@@ -1,6 +1,5 @@
 <template>
   <section>
-
       <div class="field is-grouped">
         <p class="control">
             <i class="fas fa-plus tema-button" @click="salvar"></i>

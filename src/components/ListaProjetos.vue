@@ -3,7 +3,7 @@
     <box>
       <div class="columns clicavel" @click="projetoClicado">
         <div class="column is-4">
-          <h1 class="texto-tempo">Estudando Vue.js3</h1>
+          <h1 class="texto-projeto">{{ projeto.nome || 'N/D' }}</h1>
         </div>
         <div class="column is-4">
           <Cronometro :tempoSegundos="projeto.tempoDia">
@@ -91,11 +91,20 @@ export default defineComponent({
   .texto-tempo{
     color: white;
     text-align: center;
-    font-feature-settings: 'cv11' on, 'cv01' on, 'ss01' on;
     font-family: Inter;
     font-size: 30px;
     font-style: normal;
     line-height: 20px;
+  }
+
+  .texto-projeto{
+    color: white;
+    text-align: center;
+    font-family: Inter;
+    font-size: 30px;
+    font-style: normal;
+    margin-top: 8%;
+    text-transform: uppercase;
   }
 
 

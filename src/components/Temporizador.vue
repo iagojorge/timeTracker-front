@@ -3,17 +3,17 @@
     <cronometro :tempoSegundos="tempoSegundos" />
   </div>
   <div class="button-container">
-    <a href="#" class="circle-button red" v-if="!cronometroRodando" @click="iniciar" >
+    <a class="circle-button red" v-if="!cronometroRodando" @click="iniciar" :class="{ 'icon-disabled': !projetoSelecionado }">
       <span class="icon">
         <i class="fas fa-play"></i>
       </span>
     </a>
-    <a href="#" class="circle-button red" v-if="cronometroRodando" @click="pause" >
+    <a  class="circle-button red" v-if="cronometroRodando" @click="pause" >
       <span class="icon">
         <i class="fas fa-pause"></i>
       </span>
     </a>
-    <a href="#" class="circle-button" @click="finalizar" :class="{ 'icon-disabled': !tempoSegundos }">
+    <a  class="circle-button" @click="finalizar" :class="{ 'icon-disabled': !tempoSegundos }">
       <span class="icon">
         <i class="fas fa-stop"></i>
       </span>
@@ -31,9 +31,10 @@ export default defineComponent({
   components: {
     Cronometro,
   },
-  /*Lista de ações que o componente pode emitir*/
+  props: {
+    projetoSelecionado: String
+  },
   emits: ["temporizadorFim"],
-  /*Define o estado inicial do componente*/
   data() {
     return {
       tempoSegundos: 0,
@@ -41,7 +42,6 @@ export default defineComponent({
       cronometroRodando: false,
     };
   },
-  /*Funções de execução do usuario*/
   methods: {
     iniciar() {
         this.cronometroRodando = true;

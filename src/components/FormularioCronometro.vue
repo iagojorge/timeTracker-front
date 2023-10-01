@@ -1,6 +1,6 @@
 <template>
     <header>
-      <Temporizador @temporizadorFim="finalizarTarefa"/>
+      <Temporizador @temporizadorFim="finalizarTarefa" :projetoSelecionado="idProjeto" />
       <div class="column" role="form" aria-label="Nova Tarefa">
         
         <div class="select">
@@ -50,24 +50,24 @@
       const { notificar } = useNotificador();
   
       const finalizarTarefa = function (tempoDecorrido: number): void {
-        console.log(descricaoTarefa)
         const projeto = projetos.value.find((p) => p.id == idProjeto.value);
-        console.log(projeto)
         if (!projeto) {
-          console.log("caiu")
           notificar(
             TipoNotificacao.ATENCAO,
             "Projeto",
             "Selecione um projeto antes de finalizar a tarefa!"
           );
         } else {
-          console.log(emit)
-          emit("emitSalvarTarefa", {
-            tempoTarefa: tempoDecorrido,
-            descricao: descricaoTarefa.value,
-            projeto: projetos.value.find((proj) => proj.id == idProjeto.value),
-          });
-          descricaoTarefa.value = "";
+          const projeto = projetos.value.find((proj) => proj.id == idProjeto.value);
+         
+          const dto = {
+            id: projeto?.id,
+            nome: projeto?.nome,
+            tempo: tempoDecorrido,
+            tempoTotal: projeto?.tempoTotal,
+            tempoDia: projeto?.tempoDia
+          }
+          emit("emitSalvarTarefa", dto);
         }
       };
       return{
@@ -75,6 +75,7 @@
         idProjeto,
         projetos,
         finalizarTarefa,
+        projetoSelecionado: idProjeto.value
       }
     }
   });

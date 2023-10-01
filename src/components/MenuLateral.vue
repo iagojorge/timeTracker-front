@@ -8,7 +8,7 @@
 import { defineComponent } from "vue";
 import FormularioCronometro from './FormularioCronometro.vue'
 import { useStore } from "@/store";
-import { ALTERAR_PROJETOS } from "@/store/tipo.acoes";
+import { ALTERAR_PROJETOS, OBTER_PROJETOS } from "@/store/tipo.acoes";
 import IProjeto from "@/interfaces/IProjeto";
 
 export default defineComponent({
@@ -20,14 +20,8 @@ export default defineComponent({
     const store = useStore();
 
     const salvarProjeto = function (projeto: IProjeto) {
-      console.log(projeto)
-      store.dispatch(ALTERAR_PROJETOS,{
-        id: projeto.id,
-        nome: projeto.nome,
-        tempo: projeto.tempo,
-        tempoTotal: projeto.tempoTotal + projeto.tempo,
-        tempoDia: projeto.tempoDia + projeto.tempoDia
-      });
+      store.dispatch(ALTERAR_PROJETOS, projeto);
+      store.dispatch(OBTER_PROJETOS)
     }
 
     return{
