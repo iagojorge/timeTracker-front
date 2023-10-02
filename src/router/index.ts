@@ -1,6 +1,6 @@
 import { createRouter, createWebHashHistory, RouteRecordRaw } from "vue-router";
 import Projetos from "../views/Projetos.vue";
-import Dashboard from "@/components/Dashboard.vue"
+import Dashboard from "../views/Dashboard.vue"
 import FormularioProjeto from "../components/FormularioProjeto.vue";
 
 const rotas: RouteRecordRaw[] = [

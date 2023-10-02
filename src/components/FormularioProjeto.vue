@@ -23,7 +23,7 @@ import { defineComponent, ref } from "vue";
 import { useStore } from "@/store";
 import { TipoNotificacao } from "@/interfaces/INotificacao";
 import useNotificador from "@/hooks/notificador";
-import { CADASTRAR_PROJETOS, ALTERAR_PROJETOS } from "@/store/tipo.acoes";
+import { CADASTRAR_PROJETOS, ALTERAR_PROJETOS, OBTER_PROJETOS } from "@/store/tipo.acoes";
 import { useRouter } from "vue-router";
 
 export default defineComponent({
@@ -55,7 +55,7 @@ export default defineComponent({
         "Projeto salvo com sucesso!"
       );
       nomeProjeto.value = "";
-      router.push("/projetos");
+      location.reload();
     };
 
     const erroRota = function () {
