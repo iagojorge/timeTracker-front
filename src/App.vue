@@ -79,5 +79,10 @@ main.modo-escuro {
   src: url('./assets/font/Inter-VariableFont_slnt\,wght.ttf') format('truetype');
 }
 
+@font-face {
+  font-family: 'relogio-fonte';
+  src: url('./assets/font/DS-DIGI.TTF') format('truetype');
+  /* Adicione outros formatos da fonte, se necessário */
+}
 
 </style>

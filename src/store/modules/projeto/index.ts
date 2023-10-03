@@ -32,8 +32,6 @@ export const projeto: Module<EstadoProjeto, Estado> = {
       });
     },
     [ALTERAR_PROJETOS](contexto, projeto: IProjeto) {
-      projeto.tempoDia = projeto.tempoDia + projeto.tempo;
-      projeto.tempoTotal = projeto.tempoTotal + projeto.tempo;
       return http.put(`/projetos/${projeto.id}`, projeto);
     },
     [DELETAR_PROJETOS](contexto, id: string) {

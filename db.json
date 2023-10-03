@@ -3,16 +3,16 @@
     {
       "id": 1,
       "nome": "Desenvolvendo versão 4",
-      "tempo": 5,
-      "tempoTotal": 110,
-      "tempoDia": 110
+      "tempo": 6,
+      "tempoTotal": 123,
+      "tempoDia": 123
     },
     {
       "id": 2,
       "nome": "Jogando de mage fire",
-      "tempo": 11,
-      "tempoTotal": 24,
-      "tempoDia": 24
+      "tempo": 6,
+      "tempoTotal": 30,
+      "tempoDia": 30
     },
     {
       "id": 3,

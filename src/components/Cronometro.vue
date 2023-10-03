@@ -44,9 +44,4 @@ export default defineComponent({
   text-align: center;
 }
 
-@font-face {
-  font-family: 'relogio-fonte';
-  src: url('../assets/font/DS-DIGI.TTF') format('truetype');
-  /* Adicione outros formatos da fonte, se necessário */
-}
 </style>

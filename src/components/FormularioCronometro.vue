@@ -64,8 +64,8 @@
             id: projeto?.id,
             nome: projeto?.nome,
             tempo: tempoDecorrido,
-            tempoTotal: projeto?.tempoTotal,
-            tempoDia: projeto?.tempoDia
+            tempoTotal: (projeto?.tempoTotal ?? 0) + tempoDecorrido,
+            tempoDia: (projeto?.tempoDia ?? 0) + tempoDecorrido
           }
           emit("emitSalvarTarefa", dto);
         }

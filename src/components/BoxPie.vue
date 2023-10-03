@@ -14,12 +14,12 @@
   
   <style scoped>
   .box {
-    border-radius: 30px;
-    width: 750px;
-    height: 550px;
+      width: 750px;
+      height: 550px;
+      border-radius: 30px;
     margin-right: 30px;
-    flex-shrink: 1;
     margin-top: 20px;
+    flex-shrink: 1;
     padding: 50px;
     background: #2D2D2D;
   }

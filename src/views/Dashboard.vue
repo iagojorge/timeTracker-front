@@ -11,16 +11,28 @@
             </BoxPie>
         </div>
         <div class="column is-3">
-            <BoxMini></BoxMini>
+            <BoxMini>
+                <h1 class="texto-desc">TOTAL</h1>
+                <h1 class="tempo">100 HORAS</h1>
+            </BoxMini>
         </div>
         <div class="column is-3">
-            <BoxMini></BoxMini>
+            <BoxMini>
+                <h1 class="texto-desc">ULTIMO MÊS</h1>
+                <h1 class="tempo">100 HORAS</h1>
+            </BoxMini>
         </div>
         <div class="column is-3">
-            <BoxMini></BoxMini>
+            <BoxMini>
+                <h1 class="texto-desc">ULTIMA SEMANA</h1>
+                <h1 class="tempo">100 HORAS</h1>
+            </BoxMini>
         </div>
         <div class="column is-3">
-            <BoxMini></BoxMini>
+            <BoxMini>
+                <h1 class="texto-desc">HOJE</h1>
+                <h1 class="tempo">100 HORAS</h1>
+            </BoxMini>
         </div>
     </div>
 </template>
@@ -47,5 +59,20 @@ export default defineComponent({
 
 
 <style scoped>
+.texto-desc{
+    color: white;
+    text-align: center;
+    font-family: Inter;
+    font-size: 20px;
+    font-style: normal;
+    line-height: 20px;
+  }
 
+  
+.tempo {
+    font-family: 'relogio-fonte', sans-serif;
+    color: white;
+    font-size: 70px;
+    text-align: center;
+  }
 </style>
