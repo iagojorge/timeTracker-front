@@ -7,54 +7,68 @@
   <script lang="ts">
   import { ChartData } from "chart.js";
   import Chart, { ChartConfiguration } from "chart.js/auto";
-  import { defineComponent } from "vue";
-  
-  const data: ChartData = {
-    labels: ["Estudando Vue3", "Desenvolvendo v3", "Jogando mage fire", "Clareira de comrumbaia"],
-    datasets: [
-      {
-        label: "Horas trabalhadas",
-        data: [25, 10, 20, 45],
-        backgroundColor: [
-          "rgba(255, 99, 132, 0.7)",
-          "rgba(255, 159, 64, 0.7)",
-          "rgba(255, 205, 86, 0.7)",
-          "rgba(75, 192, 192, 0.7)",
-        ],
-        borderColor: [
-          "rgb(255, 99, 132)",
-          "rgb(255, 159, 64)",
-          "rgb(255, 205, 86)",
-          "rgb(75, 192, 192)",
-        ],
-        borderWidth: 1,
-      },
-    ],
-  };
-  const config: ChartConfiguration = {
-    type: "doughnut",
-    data: data,
-    options: {
-      plugins: {
-        legend: {
-            display:true,
-            position: 'left'
-        }
-      }, 
-      scales: {
-        y: {
-          display: false
-        }
-      },
-      responsive: true, // Tornar o gráfico responsivo
-      maintainAspectRatio: false // Não manter uma proporção de aspecto fixa
-    }
-  };
+  import { defineComponent, PropType } from "vue";
+  import IProjeto from "@/interfaces/IProjeto";
   
   export default defineComponent({
     name: "GraficosPie",
+    props: {
+    projetos: {
+      type: Array as PropType<IProjeto[]>,
+      default: 0,
+      },
+    },
     methods: {},
     mounted() {
+      let labelsRota: string[] = []
+      let dataRota: number[] = []
+      for (let i: number = 0; i < this.projetos.length; i++){
+        labelsRota.push(this.projetos[i].nome)
+        dataRota.push(this.projetos[i].tempoTotal)
+      }
+     
+      const data: ChartData = {
+      labels: labelsRota,
+      datasets: [
+      {
+      label: "Horas trabalhadas",
+      data: dataRota,
+      backgroundColor: [
+        "rgba(255, 99, 132, 0.7)",
+        "rgba(255, 159, 64, 0.7)",
+        "rgba(255, 205, 86, 0.7)",
+        "rgba(75, 192, 192, 0.7)",
+      ],
+      borderColor: [
+        "rgb(255, 99, 132)",
+        "rgb(255, 159, 64)",
+        "rgb(255, 205, 86)",
+        "rgb(75, 192, 192)",
+      ],
+      borderWidth: 1,
+      },
+      ],
+      };
+      const config: ChartConfiguration = {
+        type: "doughnut",
+        data: data,
+        options: {
+          plugins: {
+            legend: {
+                display:true,
+                position: 'left'
+            }
+          }, 
+          scales: {
+            y: {
+              display: false
+            }
+          },
+          responsive: true, // Tornar o gráfico responsivo
+          maintainAspectRatio: false // Não manter uma proporção de aspecto fixa
+        }
+      };
+
       const ctx = <HTMLCanvasElement>document.getElementById("myChartPie");
       const myChart = new Chart(ctx, config);
       myChart;

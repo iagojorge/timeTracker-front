@@ -23,7 +23,7 @@ import { defineComponent, ref } from "vue";
 import { useStore } from "@/store";
 import { TipoNotificacao } from "@/interfaces/INotificacao";
 import useNotificador from "@/hooks/notificador";
-import { CADASTRAR_PROJETOS, ALTERAR_PROJETOS, OBTER_PROJETOS } from "@/store/tipo.acoes";
+import { CADASTRAR_PROJETOS, ALTERAR_PROJETOS} from "@/store/tipo.acoes";
 import { useRouter } from "vue-router";
 
 export default defineComponent({
@@ -91,18 +91,19 @@ export default defineComponent({
 <style scoped>
 
 .input-filtro{
-  background-color: #2D2D2D;
-  color: #9E9E9E;
+  background-color: var( --bg-campo);
+  color: var(--text-campo);
   border: none;
 }
 
 .input-filtro::placeholder{
-  color: #9E9E9E;
+  color: var(--text-campo);
 }
 
 .tema-button{
   font-size: 40px;
   cursor: pointer;
+  color: var(--texto-secundario);
 }
 
 </style>

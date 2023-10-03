@@ -82,27 +82,17 @@
   </script>
   
   <style scoped>
-    .input-tarefa{
-      background-color: #2D2D2D;
-      color: #9E9E9E;
-      border: none;
-      text-align: center;
-    }
 
     select.custom-select {
-      background-color: #2D2D2D;
-      color: #9E9E9E;
+      background-color: var(--bg-campo);
+      color: var(--text-campo);
       border: none;
       text-align: center;
       width: 1000px;
   }
 
-  .space{
-    padding-top: 10px;
-    padding-bottom: 10px;
-  }
     input::placeholder {
-      color: #9E9E9E;
+      color: var(--text-campo);
       text-align: center;
     }
 

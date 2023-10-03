@@ -29,7 +29,7 @@ export default defineComponent({
 },
   data() {
     return {
-      modoEscuroAtivo: true,
+      modoEscuroAtivo: false,
     };
   },
   methods: {
@@ -41,17 +41,16 @@ export default defineComponent({
 </script>
 
 <style>
-.lista {
-  padding: 1.25rem;
-}
-
-.teste {
-  background-color: #171616;
-}
 
 main {
-  --bg-primario: #white;
-  --texto-primario: #cd7e75;
+  --bg-primario: #171616;
+  --texto-primario: #FFFFFF;
+  --texto-secundario:#2D2D2D;
+  --bg-secundario: #2D2D2D;
+  --bg-campo: #2D2D2D;
+  --bg-menu: #1e1e1e;
+  --text-campo: #9E9E9E;
+  --texto-selecionado: #FFFFFF;
   width: 100%;
   height: 100%;
   position: absolute;
@@ -60,8 +59,14 @@ main {
 }
 
 main.modo-escuro {
-  --bg-primario: #171616;
-  --texto-primario: #cd7e75;
+  --bg-primario: #FFFFFF;
+  --texto-primario: #111;
+  --texto-secundario:#111;
+  --bg-secundario: #4FD1C5;
+  --bg-campo: #FFFFFF;
+  --bg-menu: #4FD1C5;
+  --text-campo: #111;
+  --texto-selecionado: #4FD1C5;
 }
 
 .conteudo {

@@ -38,7 +38,6 @@ import IProjeto from "@/interfaces/IProjeto";
 import FormularioProjeto from "@/components/FormularioProjeto.vue";
 import ListaProjetos from "@/components/ListaProjetos.vue";
 import { useStore } from "@/store";
-import { OBTER_PROJETOS } from "@/store/tipo.acoes";
 
 export default defineComponent({
   name: "Projetos",
@@ -65,7 +64,6 @@ export default defineComponent({
   },
   setup(){
     const store = useStore();
-    store.dispatch(OBTER_PROJETOS);
 
     return{
       projetos: computed(() => store.state.projeto.projetos),

@@ -22,7 +22,7 @@
     margin-left: 30px;
     margin-top: 30px;
     padding: 50px;
-    background: #2D2D2D;
+    background: var( --bg-secundario);
 
   }
   </style>

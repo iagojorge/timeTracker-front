@@ -32,7 +32,6 @@ import Cronometro from "./Cronometro.vue";
 import { DELETAR_PROJETOS } from "@/store/tipo.acoes";
 import { TipoNotificacao } from "@/interfaces/INotificacao";
 import useNotificador from "@/hooks/notificador";
-import { OBTER_PROJETOS } from "@/store/tipo.acoes";
 import Box from "./Box.vue";
 import IProjeto from "@/interfaces/IProjeto";
 
@@ -76,7 +75,7 @@ export default defineComponent({
   setup() {
     const store = useStore();
     const { notificar } = useNotificador();
-    store.dispatch(OBTER_PROJETOS);
+
     return {
       projetos: computed(() => store.state.projeto.projetos),
       store,
@@ -89,7 +88,7 @@ export default defineComponent({
 
 <style scoped>
   .texto-tempo{
-    color: white;
+    color: var(--texto-primario);
     text-align: center;
     font-family: Inter;
     font-size: 30px;
@@ -98,7 +97,7 @@ export default defineComponent({
   }
 
   .texto-projeto{
-    color: white;
+    color: var(--texto-primario);
     text-align: center;
     font-family: Inter;
     font-size: 30px;
@@ -106,16 +105,4 @@ export default defineComponent({
     margin-top: 8%;
     text-transform: uppercase;
   }
-
-
-.texto-nav{
-  color: #2D2D2D;
-  text-align: center;
-  font-feature-settings: 'cv11' on, 'cv01' on, 'ss01' on;
-  font-family: Inter;
-  font-size: 30px;
-  font-style: normal;
-  font-weight: bold;
-  line-height: 20px; /* 142.857% */
-}
 </style>

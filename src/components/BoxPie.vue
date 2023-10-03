@@ -21,7 +21,7 @@
     margin-top: 20px;
     flex-shrink: 1;
     padding: 50px;
-    background: #2D2D2D;
+    background: var( --bg-secundario);
   }
   </style>
   

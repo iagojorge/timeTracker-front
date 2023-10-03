@@ -12,8 +12,10 @@
               <input
                 class="input input-filtro"
                 type="text"
-                placeholder="Buscar tarefa"
+                placeholder="Buscar projeto"
                 v-model="filtro"
+                :disabled="!disableInput"
+                :class="{'is-static' : !disableInput }"
               />
               <span class="icon is-small is-left">
                 <i class="fas fa-search"></i>
@@ -26,13 +28,13 @@
             class="fa-solid fa-moon temaButton"
             :class="{'fa-flip': flip}"
             @click="alterarTema"
-            v-if="!modoEscuro"
+            v-if="modoEscuro"
           ></i>
           <i
             class="fa-solid fa-sun temaButton"
             :class="{'fa-flip': flip}"
             @click="alterarTema"
-            v-if="modoEscuro"
+            v-if="!modoEscuro"
           ></i>
           <i class="fa-solid fa-arrows-rotate temaButton"  @click="refresh" :class="{ 'fa-spin': girando }"></i>
         </div>
@@ -45,6 +47,7 @@
 <script lang="ts">
 import { defineComponent, ref, watchEffect } from "vue";
 import { useStore } from "@/store";
+import { OBTER_PROJETOS } from "@/store/tipo.acoes";
 export default defineComponent({
   name: "MenuSuperior",
   emits: ["temaAlterado"],
@@ -52,7 +55,8 @@ export default defineComponent({
     return {
       modoEscuro: false,
       flip: false,
-      girando: false
+      girando: false,
+      disableInput: false
     };
   }, 
   methods: {
@@ -69,18 +73,28 @@ export default defineComponent({
         setTimeout(() => {
         location.reload();
         }, 1000);
+    },
+    verificaRota(){
+      if(window.location.hash === '#/projetos'){
+            this.disableInput = true;
+          }else{
+            this.filtro = ""
+            this.disableInput = false;
+          }
     }
+  },  
+  watch: {
+    '$route': 'verificaRota',
   },
   setup(){
     const store = useStore();
     const filtro = ref("");
-    let girando: boolean = false;
-  
 
     watchEffect(() => {
-    
+      store.dispatch(OBTER_PROJETOS, filtro.value);
+      console.log(filtro.value)
     });
-
+  
     return{
        filtro
     }
@@ -96,13 +110,17 @@ export default defineComponent({
     z-index: 1;
 }
 .input-filtro{
-    background-color: #2D2D2D;
-    color: #9E9E9E;
+    background-color: var(--bg-campo);
+    color: var(--text-campo);
     border: none;
   }
 
+input[disabled] {
+  cursor: default;
+}
+
 .input-filtro::placeholder{
-  color:#9E9E9E
+  color: var(--text-campo)
 }
 
 .filtro{
@@ -114,7 +132,7 @@ export default defineComponent({
 }
 
 .texto-nav{
-    color: #2D2D2D;
+    color: var(--texto-secundario);
     text-align: center;
     font-feature-settings: 'cv11' on, 'cv01' on, 'ss01' on;
     font-family: Inter;
@@ -125,7 +143,7 @@ export default defineComponent({
 }
 
 .texto-nav-active {
-    color: #FFFFFF;
+    color: var(--texto-selecionado);
     border-bottom: 1px groove white;
    
   }
@@ -134,5 +152,6 @@ export default defineComponent({
     font-size: 30px;
     cursor: pointer;
     margin-right: 30px;
+    color: var(--texto-secundario);
 }
 </style>

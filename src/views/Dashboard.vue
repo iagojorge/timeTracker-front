@@ -7,38 +7,38 @@
         </div>
         <div class="column is-5">
             <BoxPie>
-                <GraficosPie></GraficosPie>
+                <GraficosPie :projetos="projetos"/>
             </BoxPie>
         </div>
         <div class="column is-3">
             <BoxMini>
                 <h1 class="texto-desc">TOTAL</h1>
-                <h1 class="tempo">100 HORAS</h1>
+                <h1 class="tempo">{{ tempoTotal }} </h1>
             </BoxMini>
         </div>
         <div class="column is-3">
             <BoxMini>
                 <h1 class="texto-desc">ULTIMO MÊS</h1>
-                <h1 class="tempo">100 HORAS</h1>
+                <h1 class="tempo">N/D</h1>
             </BoxMini>
         </div>
         <div class="column is-3">
             <BoxMini>
                 <h1 class="texto-desc">ULTIMA SEMANA</h1>
-                <h1 class="tempo">100 HORAS</h1>
+                <h1 class="tempo">N/D</h1>
             </BoxMini>
         </div>
         <div class="column is-3">
             <BoxMini>
                 <h1 class="texto-desc">HOJE</h1>
-                <h1 class="tempo">100 HORAS</h1>
+                <h1 class="tempo">{{  tempoDia  }} </h1>
             </BoxMini>
         </div>
     </div>
 </template>
 
 <script lang="ts">
-import { defineComponent } from 'vue';
+import { defineComponent, computed } from 'vue';
 import { OBTER_PROJETOS } from '@/store/tipo.acoes';
 import { useStore } from "@/store";
 import BoxGraficos from "@/components/BoxGraficos.vue";
@@ -50,8 +50,25 @@ import BoxMini from '@/components/BoxMini.vue'
 export default defineComponent({
     name: 'Dashboard',
     setup() {
+        console.log("teste")
+
         const store = useStore();
         store.dispatch(OBTER_PROJETOS);
+        const projetos = computed(() => store.state.projeto.projetos);
+
+        let tempoTotal: number = 10;
+        let tempoDia: number = 10;
+
+       // for (let i: number = 0; i < projetos.value.length; i++) {
+       //    tempoDia += projetos.value[i].tempoDia 
+       //    tempoTotal += projetos.value[i].tempoTotal
+      //  }
+
+        return{
+            projetos,
+            tempoDia: new Date(tempoDia * 1000).toISOString().substr(11, 8),
+            tempoTotal: new Date(tempoTotal * 1000).toISOString().substr(11, 8)
+        }
     },
     components: { GraficosBar, BoxGraficos, BoxPie, GraficosPie, BoxMini }
 })
@@ -60,7 +77,7 @@ export default defineComponent({
 
 <style scoped>
 .texto-desc{
-    color: white;
+    color: var(--texto-primario);
     text-align: center;
     font-family: Inter;
     font-size: 20px;
@@ -71,7 +88,7 @@ export default defineComponent({
   
 .tempo {
     font-family: 'relogio-fonte', sans-serif;
-    color: white;
+    color: var(--texto-primario);
     font-size: 70px;
     text-align: center;
   }

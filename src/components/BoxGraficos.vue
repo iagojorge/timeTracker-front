@@ -21,7 +21,7 @@
     margin-left: 30px;
     margin-top: 20px;
     padding: 40px;
-    background: #2D2D2D;
+    background: var( --bg-secundario);
   }
   </style>
   

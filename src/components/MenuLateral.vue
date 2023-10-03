@@ -8,7 +8,7 @@
 import { defineComponent } from "vue";
 import FormularioCronometro from './FormularioCronometro.vue'
 import { useStore } from "@/store";
-import { ALTERAR_PROJETOS, OBTER_PROJETOS } from "@/store/tipo.acoes";
+import { ALTERAR_PROJETOS } from "@/store/tipo.acoes";
 import IProjeto from "@/interfaces/IProjeto";
 
 export default defineComponent({
@@ -21,7 +21,6 @@ export default defineComponent({
 
     const salvarProjeto = function (projeto: IProjeto) {
       store.dispatch(ALTERAR_PROJETOS, projeto);
-      store.dispatch(OBTER_PROJETOS)
     }
 
     return{
@@ -36,7 +35,7 @@ export default defineComponent({
 header {
   text-align: center;
   padding: 1rem;
-  background: #1e1e1e;
+  background: var(--bg-menu);
   width: 100%;
   height: 100%;
 }
