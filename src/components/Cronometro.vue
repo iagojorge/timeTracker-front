@@ -1,9 +1,9 @@
 <template>
   <section>
-    <span class="icon display">
-      <i class="fas fa-stopwatch"></i>
-    </span>
-    <strong class="display">{{ tempoCorrido }}</strong>
+    <div class="center">
+      <slot name="tempoDia"></slot>
+      <h1 class="relogio">{{ tempoCorrido }}</h1>
+    </div>
   </section>
 </template>
 
@@ -29,7 +29,16 @@ export default defineComponent({
 </script>
 
 <style scoped>
-.display {
-  color: var(--texto-primario);
+
+.center {
+  text-align: center;
 }
+
+.relogio {
+  font-family: 'relogio-fonte', sans-serif;
+  color: var(--texto-primario);
+  font-size: 70px;
+  text-align: center;
+}
+
 </style>

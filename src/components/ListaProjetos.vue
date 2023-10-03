@@ -1,55 +1,54 @@
 <template>
   <section>
-    <router-link to="/projetos/novo" class="button">
-      <span class="icon is-small">
-        <i class="fas fa-plus"></i>
-      </span>
-      <span>Novo projeto</span>
-    </router-link>
-    <table class="table is-striped is-narrow is-hoverable is-fullwidth">
-      <thead>
-        <tr>
-          <th>ID</th>
-          <th>Nome</th>
-          <th>Ações</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr v-for="projeto in projetos" :key="projeto.id">
-          <td>{{ projeto.id }}</td>
-          <td>{{ projeto.nome }}</td>
-          <td>
-            <router-link :to="`/projetos/${projeto.id}`" class="button">
-              <span class="icon is-small">
-                <i class="fas fa-pencil-alt"></i>
-              </span>
-            </router-link>
-            <button
-              class="button ml-2 is-danger"
-              @click="excluir(projeto.id, projeto.nome)"
-            >
-              <span class="icon is-small">
-                <i class="fas fa-trash"></i>
-              </span>
-            </button>
-          </td>
-        </tr>
-      </tbody>
-    </table>
+    <box>
+      <div class="columns clicavel" @click="projetoClicado">
+        <div class="column is-4">
+          <h1 class="texto-projeto">{{ projeto.nome || 'N/D' }}</h1>
+        </div>
+        <div class="column is-4">
+          <Cronometro :tempoSegundos="projeto.tempoDia">
+            <template v-slot:tempoDia>
+              <h1 class="texto-tempo">HORAS TRABALHADAS HOJE</h1>
+            </template>
+          </Cronometro>
+        </div>
+        <div class="column is- 4">
+          <Cronometro :tempoSegundos="projeto.tempoTotal">
+            <template v-slot:tempoDia>
+              <h1 class="texto-tempo">HORAS TRABALHADAS TOTAL</h1>
+            </template>
+          </Cronometro>
+        </div>
+      </div>
+    </box>
   </section>
 </template>
 
 <script lang="ts">
 
-import { defineComponent, computed } from "vue";
+import { defineComponent, computed, PropType} from "vue";
 import { useStore } from "@/store";
+import Cronometro from "./Cronometro.vue";
 import { DELETAR_PROJETOS } from "@/store/tipo.acoes";
 import { TipoNotificacao } from "@/interfaces/INotificacao";
 import useNotificador from "@/hooks/notificador";
-import { OBTER_PROJETOS } from "@/store/tipo.acoes";
+import Box from "./Box.vue";
+import IProjeto from "@/interfaces/IProjeto";
+
 
 export default defineComponent({
   name: "ListaProjeto",
+  components: {
+    Box,
+    Cronometro
+  },  
+  emits:['aoProjetoClicado'],
+  props: {
+    projeto: {
+      type: Object as PropType<IProjeto>,
+      required: true,
+    },
+  },
   methods: {
     excluir(id: string, nome: string) {
       this.store
@@ -69,11 +68,14 @@ export default defineComponent({
           );
         });
     },
+    projetoClicado(): void {
+      this.$emit("aoProjetoClicado", this.projetos);
+    }
   },
   setup() {
     const store = useStore();
     const { notificar } = useNotificador();
-    store.dispatch(OBTER_PROJETOS);
+
     return {
       projetos: computed(() => store.state.projeto.projetos),
       store,
@@ -83,3 +85,24 @@ export default defineComponent({
 });
 
 </script>
+
+<style scoped>
+  .texto-tempo{
+    color: var(--texto-primario);
+    text-align: center;
+    font-family: Inter;
+    font-size: 30px;
+    font-style: normal;
+    line-height: 20px;
+  }
+
+  .texto-projeto{
+    color: var(--texto-primario);
+    text-align: center;
+    font-family: Inter;
+    font-size: 30px;
+    font-style: normal;
+    margin-top: 8%;
+    text-transform: uppercase;
+  }
+</style>

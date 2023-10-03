@@ -1,64 +1,25 @@
 {
   "projetos": [
     {
-      "id": 9,
-      "nome": "comendo o olailson de quatro"
-    },
-    {
-      "id": 10,
-      "nome": "Estudando vue.js23"
-    },
-    {
-      "nome": "teste",
-      "id": 11
-    }
-  ],
-  "tarefas": [
-    {
       "id": 1,
-      "tempoTarefa": 120,
-      "descricao": "TESTE",
-      "projeto": {
-        "nome": "Estudando vue.js",
-        "id": 4
-      }
+      "nome": "Desenvolvendo versão 4",
+      "tempo": 3,
+      "tempoTotal": 242,
+      "tempoDia": 242
     },
     {
-      "tempoTarefa": 2,
-      "descricao": "Comendo o olailson de ladinho :)",
-      "projeto": {
-        "id": 5,
-        "nome": "PROJETO COMER O OLAILSON"
-      },
-      "id": 2
+      "id": 2,
+      "nome": "Jogando de mage fire",
+      "tempo": 6,
+      "tempoTotal": 30,
+      "tempoDia": 30
     },
     {
-      "tempoTarefa": 2,
-      "descricao": "Estudando vue.js",
-      "projeto": {
-        "nome": "PROJETO",
-        "id": 6
-      },
-      "id": 3
-    },
-    {
-      "tempoTarefa": 1,
-      "descricao": "Estudando vue.js",
-      "projeto": {
-        "id": 10,
-        "nome": "Estudando vue.js23"
-      },
-      "id": 4
-    },
-    {
-      "tempoTarefa": 1,
-      "descricao": "TTESTE",
-      "projeto": {
-        "id": 10,
-        "nome": "Estudando vue.js23"
-      },
-      "id": 5
-
+      "id": 3,
+      "nome": "Clareira de corumbaia +10",
+      "tempo": 1,
+      "tempoTotal": 6,
+      "tempoDia": 6
     }
   ]
 }

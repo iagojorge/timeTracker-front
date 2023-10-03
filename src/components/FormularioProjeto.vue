@@ -1,19 +1,20 @@
 <template>
   <section>
-    <form @submit.prevent="salvar">
-      <div class="field">
-        <label for="nomeProjeto" class="label">Nome do projeto</label>
-        <input
+      <div class="field is-grouped">
+        <p class="control">
+            <i class="fas fa-plus tema-button" @click="salvar"></i>
+        </p>
+        <p class="control is-expanded">
+          <input
           type="text"
-          class="input"
+          class="input input-filtro"
+          placeholder="Nome do projeto"
           v-model="nomeProjeto"
           id="nomeProjeto"
         />
+        </p>
       </div>
-      <div class="field">
-        <button class="button" type="submit">Salvar</button>
-      </div>
-    </form>
+
   </section>
 </template>
 
@@ -22,7 +23,7 @@ import { defineComponent, ref } from "vue";
 import { useStore } from "@/store";
 import { TipoNotificacao } from "@/interfaces/INotificacao";
 import useNotificador from "@/hooks/notificador";
-import { CADASTRAR_PROJETOS, ALTERAR_PROJETOS } from "@/store/tipo.acoes";
+import { CADASTRAR_PROJETOS, ALTERAR_PROJETOS} from "@/store/tipo.acoes";
 import { useRouter } from "vue-router";
 
 export default defineComponent({
@@ -54,7 +55,7 @@ export default defineComponent({
         "Projeto salvo com sucesso!"
       );
       nomeProjeto.value = "";
-      router.push("/projetos");
+      location.reload();
     };
 
     const erroRota = function () {
@@ -86,3 +87,23 @@ export default defineComponent({
   },
 });
 </script>
+
+<style scoped>
+
+.input-filtro{
+  background-color: var( --bg-campo);
+  color: var(--text-campo);
+  border: none;
+}
+
+.input-filtro::placeholder{
+  color: var(--text-campo);
+}
+
+.tema-button{
+  font-size: 40px;
+  cursor: pointer;
+  color: var(--texto-secundario);
+}
+
+</style>
