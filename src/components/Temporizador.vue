@@ -13,7 +13,7 @@
         <i class="fas fa-pause"></i>
       </span>
     </a>
-    <a  class="circle-button" @click="finalizar" :class="{ 'icon-disabled': !tempoSegundos }">
+    <a  class="circle-button" @click="finalizar" :class="{ 'icon-disabled': !tempoSegundos || !projetoSelecionado }">
       <span class="icon">
         <i class="fas fa-stop"></i>
       </span>

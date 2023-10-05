@@ -28,8 +28,9 @@ export const projeto: Module<EstadoProjeto, Estado> = {
         url += "?nome=" + filtro;
       }
 
-      http.get(url).then((response) => {
-        commit(DEFINIR_PROJETO, response.data)
+      return http.get(url).then((response) => {
+        commit(DEFINIR_PROJETO, response.data);
+        return response.data;
       });
     },
     [CADASTRAR_PROJETOS](contexto, nomeProjeto: string) {

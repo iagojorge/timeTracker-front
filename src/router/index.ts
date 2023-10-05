@@ -2,6 +2,7 @@ import { createRouter, createWebHashHistory, RouteRecordRaw } from "vue-router";
 import Projetos from "../views/Projetos.vue";
 import Dashboard from "../views/Dashboard.vue"
 import FormularioProjeto from "../components/FormularioProjeto.vue";
+import TelaLogin from "../views/TelaLogin.vue"
 
 const rotas: RouteRecordRaw[] = [
   {
@@ -28,9 +29,14 @@ const rotas: RouteRecordRaw[] = [
         name: "Editar Projetos",
         component: FormularioProjeto,
         props: true, //quando props é true vai pegar o :id e injetedar na viwe como se fosse uma prop do componente
-      },
+      }
     ],
   },
+  {
+    path: "/login",
+    name: "TelaLogin",
+    component: TelaLogin,
+  }
 ];
 
 const roteador = createRouter({

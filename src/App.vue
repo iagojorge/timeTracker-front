@@ -1,5 +1,6 @@
 <template>
-  <main
+  <RouterView></RouterView>
+  <main v-if="false"
     class="columns is-gapless is-multiline teste"
     :class="{ 'modo-escuro': modoEscuroAtivo }">
     <div class="column is-one-quarter menu-lateral">

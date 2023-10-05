@@ -92,7 +92,6 @@ export default defineComponent({
 
     watchEffect(() => {
       store.dispatch(OBTER_PROJETOS, filtro.value);
-      console.log(filtro.value)
     });
   
     return{
