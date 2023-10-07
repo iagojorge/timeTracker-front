@@ -166,4 +166,15 @@ main * {
 
 }
 
+@media only screen and (min-width: 2000px) {
+    .login-image{
+        width: 70vh;
+    }
+
+    .left-login > h1{
+        font-size: 2vw;
+        font-weight: 600;
+    }
+}
+
 </style>
