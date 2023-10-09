@@ -25,13 +25,13 @@
         </div>
         <div class="column is-1">
           <i
-            class="fa-solid fa-moon temaButton"
+            class="fa-solid fa-moon temaButton margin"
             :class="{'fa-flip': flip}"
             @click="alterarTema"
             v-if="modoEscuro"
           ></i>
           <i
-            class="fa-solid fa-sun temaButton"
+            class="fa-solid fa-sun temaButton margin"
             :class="{'fa-flip': flip}"
             @click="alterarTema"
             v-if="!modoEscuro"
@@ -39,7 +39,7 @@
           <i class="fa-solid fa-arrows-rotate temaButton"  @click="refresh" :class="{ 'fa-spin': girando }"></i>
         </div>
         <div class="column is-2">
-          <i class="fa-solid fa-user temaButton"> Username</i>
+          <i class="fa-solid fa-user temaButton"> User</i>
         </div>
     </div>
 </template>
@@ -135,7 +135,7 @@ input[disabled] {
     text-align: center;
     font-feature-settings: 'cv11' on, 'cv01' on, 'ss01' on;
     font-family: Inter;
-    font-size: 30px;
+    font-size: 1.5vw;
     font-style: normal;
     font-weight: bold;
     line-height: 20px; /* 142.857% */
@@ -148,9 +148,12 @@ input[disabled] {
   }
 
 .temaButton{
-    font-size: 30px;
+    font-size: 1.3vw;
     cursor: pointer;
-    margin-right: 30px;
     color: var(--texto-secundario);
+}
+
+.margin{
+  margin-right: 1vw;
 }
 </style>

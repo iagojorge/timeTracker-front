@@ -88,7 +88,7 @@
       color: var(--text-campo);
       border: none;
       text-align: center;
-      width: 1000px;
+      width: 100vw;
   }
 
     input::placeholder {

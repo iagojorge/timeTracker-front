@@ -5,18 +5,42 @@
                 <h1>Faça login<br>E venha conhecer o TimeTracker</h1>
                 <img src="../assets/save-time-animate.svg" class="login-image" alt="Time animação">
             </div>
-            <div class="right-login">
+            <div class="right-login" v-if="!registro">
                 <div class="card-login">
                     <h1>Login</h1>
                     <div class="textfield">
-                        <label for="usuario">Usuário</label>
-                        <input type="text" name="usuario" placeholder="Usuário">
+                        <label for="usuario">E-mail</label>
+                        <input type="text" name="email" placeholder="E-mail" v-model="email">
                     </div>
                     <div class="textfield">
                         <label for="senha">Senha</label>
-                        <input type="passowrd" name="senha" placeholder="Senha">
+                        <input type="password" name="password" placeholder="Senha" v-model="password">
                     </div>
-                    <button class="btn-login">Login</button>
+                    <button class="btn-login" @click="login">Login</button>
+                    <h2 @click="registrar">Registre-se</h2>
+                </div>
+            </div>
+            <div class="right-login" v-if="registro">
+                <div class="card-login">
+                    <h1>Cadastro</h1>
+                    <div class="textfield">
+                        <label for="usuario">Nome de usuário</label>
+                        <input type="text" name="nome" placeholder="Nome de usuário" v-model="user">
+                    </div>
+                    <div class="textfield">
+                        <label for="usuario">E-mail</label>
+                        <input type="email" name="email" placeholder="E-mail" v-model="email">
+                    </div>
+                    <div class="textfield">
+                        <label for="senha">Senha</label>
+                        <input type="password" name="password" placeholder="Senha" v-model="password">
+                    </div>
+                    <div class="textfield">
+                        <label for="senha">Confirme a senha</label>
+                        <input type="password" name="passwordConfirm" placeholder="Confirme a senha" v-model="passwordConfirm">
+                    </div>
+                    <button class="btn-login" @click="cadastro">Cadastre-se</button>
+                    <h2 @click="registrar">Já tem conta? Faça login</h2>
                 </div>
             </div>
         </div>
@@ -24,9 +48,62 @@
 </template>
 
 <script lang="ts">
-import { defineComponent } from 'vue';
+import { store } from '@/store';
+import { defineComponent, ref, inject  } from 'vue';
+import { LOGIN, CADASTRO } from '@/store/tipo.acoes';
+import { useRouter  } from 'vue-router';
+
 export default defineComponent({
-    name: "TelaLogin"
+    name: "TelaLogin",
+    data(){
+        return {
+            registro: false,
+      };
+    },
+    methods:{
+        registrar(){
+            this.registro = !this.registro
+        }
+    },
+    setup(){
+        const user = ref("");
+        const password = ref("");
+        const email = ref("");
+        const passwordConfirm = ref ("");
+
+        const router = useRouter()
+
+        const login = function () {
+            store.dispatch(LOGIN, {
+                email: email.value,
+                password: password.value
+            }).then((res) =>{
+                const token = res.data.token
+                router.push('/');
+                localStorage.setItem('token', token);
+            })
+        }
+
+        const cadastro = function (){
+            store.dispatch(CADASTRO, {
+               name: user.value,
+               email: email.value,
+               password: password.value,
+               confirmPassword: passwordConfirm.value 
+            }).then(() => {
+                login()
+            })
+        } 
+
+        return {
+            user,
+            password,
+            email,
+            passwordConfirm,
+            login,
+            cadastro
+        }
+    }
 })
 </script>
 
@@ -38,8 +115,8 @@ main * {
 }
 
 .main-login{
-    width: 100vw;
-    height: 100vh;
+        width: 100vw;
+        height: 100vh;
     background: #171616;
     display: flex;
     justify-content: center;
@@ -77,8 +154,19 @@ main * {
 .card-login > h1 {
     color: #FFFFFF;
     font-weight: 800;
-    font-size: 30px;
+    font-size: 30pt;
     margin: 0;
+}
+
+.card-login > h2 {
+    color: #FFFFFF;
+    font-size: 11pt;
+    margin: 0;
+    transition: color 0.3s;
+}
+.card-login > h2:hover {
+    color: rgb(57, 102, 249);
+    cursor: pointer;
 }
 
 .card-login{

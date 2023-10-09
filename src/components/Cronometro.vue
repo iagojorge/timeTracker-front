@@ -32,12 +32,14 @@ export default defineComponent({
 
 .center {
   text-align: center;
+  box-sizing: border-box;
 }
 
 .relogio {
   font-family: 'relogio-fonte', sans-serif;
   color: var(--texto-primario);
-  font-size: 70px;
+  font-size: 4vw;
+  box-sizing: border-box;
   text-align: center;
 }
 

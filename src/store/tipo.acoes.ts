@@ -4,3 +4,6 @@ export const CADASTRAR_PROJETOS = "CADASTRAR_PROJETOS";
 export const ALTERAR_PROJETOS = "ALTERAR_PROJETOS";
 export const DELETAR_PROJETOS = "DELETAR_PROJETOS";
 
+export const LOGIN = "LOGIN";
+export const CADASTRO = "CADASTRO";
+

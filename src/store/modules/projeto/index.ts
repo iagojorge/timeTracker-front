@@ -22,13 +22,7 @@ export const projeto: Module<EstadoProjeto, Estado> = {
   },
   actions: {
     [OBTER_PROJETOS]({ commit }, filtro: string) {
-      let url = "projetos";
-
-      if (filtro) {
-        url += "?nome=" + filtro;
-      }
-
-      return http.get(url).then((response) => {
+      return http.get("/projetos/list").then((response) => {
         commit(DEFINIR_PROJETO, response.data);
         return response.data;
       });
