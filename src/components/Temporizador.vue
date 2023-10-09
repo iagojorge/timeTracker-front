@@ -44,7 +44,10 @@ export default defineComponent({
   },
   methods: {
     iniciar() {
+        console.log(this.projetoSelecionado)
+
         this.cronometroRodando = true;
+        
 
         this.cronometro = setInterval(() => {
             this.tempoSegundos += 1;

@@ -13,15 +13,24 @@
   </script>
   
   <style scoped>
+
   .box {
     border-radius: 30px;
-    width: 1030px;
-    height: 550px;
-    flex-shrink: 1;
-    margin-left: 30px;
+    width: 95%; 
+    height: 100%;
+    margin-left: 2%;
+    margin-right: 2%;
     margin-top: 20px;
-    padding: 40px;
-    background: var( --bg-secundario);
+    padding: 5%;
+    background: var(--bg-secundario);
+  }
+
+
+  @media (max-width: 768px) {
+    .box {
+        width: 90%; 
+        padding: 10px;
+    }
   }
   </style>
   

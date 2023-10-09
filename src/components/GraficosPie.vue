@@ -24,7 +24,7 @@
       let dataRota: number[] = []
       for (let i: number = 0; i < this.projetos.length; i++){
         labelsRota.push(this.projetos[i].nome)
-        dataRota.push(this.projetos[i].tempoTotal)
+        dataRota.push(10)
       }
      
       const data: ChartData = {

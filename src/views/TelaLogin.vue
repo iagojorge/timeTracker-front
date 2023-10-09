@@ -78,9 +78,14 @@ export default defineComponent({
                 email: email.value,
                 password: password.value
             }).then((res) =>{
+                console.log(res.data)
                 const token = res.data.token
-                router.push('/');
+                const name = res.data.name
+                const userId = res.data.id
                 localStorage.setItem('token', token);
+                localStorage.setItem('name', name);
+                localStorage.setItem('userId', userId)
+                router.push('/');
             })
         }
 
@@ -115,8 +120,8 @@ main * {
 }
 
 .main-login{
-        width: 100vw;
-        height: 100vh;
+    width: 100vw;
+    height: 100vh;
     background: #171616;
     display: flex;
     justify-content: center;

@@ -1,5 +1,5 @@
 <template>
-  <div class="columns is-gapless is-multiline">
+  <div class="columns is-gapless is-multiline dashboard">
     <div class="column is-7">
       <BoxGraficos>
         <GraficosBar />
@@ -38,7 +38,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, computed, ref, onMounted, watchEffect } from "vue";
+import { defineComponent, ref, onMounted } from "vue";
 import { OBTER_PROJETOS } from "@/store/tipo.acoes";
 import { useStore } from "@/store";
 import IProjeto from "@/interfaces/IProjeto";
@@ -94,11 +94,15 @@ export default defineComponent({
 </script>
 
 <style scoped>
+
+.dashboard{
+  height: 92vh;
+}
 .texto-desc {
   color: var(--texto-primario);
   text-align: center;
   font-family: Inter;
-  font-size: 20px;
+  font-size: 1vw;
   font-style: normal;
   line-height: 20px;
 }
@@ -106,7 +110,7 @@ export default defineComponent({
 .tempo {
   font-family: "relogio-fonte", sans-serif;
   color: var(--texto-primario);
-  font-size: 70px;
+  font-size: 4vw;
   text-align: center;
 }
 </style>

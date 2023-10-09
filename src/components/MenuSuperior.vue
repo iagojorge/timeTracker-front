@@ -39,7 +39,20 @@
           <i class="fa-solid fa-arrows-rotate temaButton"  @click="refresh" :class="{ 'fa-spin': girando }"></i>
         </div>
         <div class="column is-2">
-          <i class="fa-solid fa-user temaButton"> User</i>
+          <div class="dropdown is-hoverable">
+            <div class="dropdown-trigger">
+              <button class="button" aria-haspopup="true" aria-controls="dropdown-menu4">
+                <i class="fa-solid fa-user temaButton">{{name}}</i>
+              </button>
+            </div>
+            <div class="dropdown-menu" id="dropdown-menu4" role="menu">
+              <div class="dropdown-content dropdownCustom" >
+                <a href="#" class="dropdown-item dropdownCustom" @click="logout">
+                  Sair
+                </a>
+              </div>
+            </div>
+          </div>
         </div>
     </div>
 </template>
@@ -81,6 +94,10 @@ export default defineComponent({
             this.filtro = ""
             this.disableInput = false;
           }
+    },
+    logout(){
+      localStorage.clear()
+      this.refresh()
     }
   },  
   watch: {
@@ -90,12 +107,15 @@ export default defineComponent({
     const store = useStore();
     const filtro = ref("");
 
+    const name = localStorage.getItem('name');
+
     watchEffect(() => {
       store.dispatch(OBTER_PROJETOS, filtro.value);
     });
   
     return{
-       filtro
+       filtro,
+       name
     }
   }
 });
@@ -151,6 +171,23 @@ input[disabled] {
     font-size: 1.3vw;
     cursor: pointer;
     color: var(--texto-secundario);
+    background-color: var(--bg-primario);
+}
+
+.button {
+  background-color: var(--bg-primario);
+  border: none;
+  outline: none;
+  font-size: 0.5vw;
+}
+
+.dropdownCustom{
+  background-color: var(--bg-primario);
+}
+
+.dropdown-item:hover{
+  color: var(--texto-primario);
+  background-color: var(--bg-primario);
 }
 
 .margin{

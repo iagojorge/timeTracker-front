@@ -9,8 +9,6 @@
 <script lang="ts">
 import { defineComponent } from "vue";
 
-console.log(localStorage.getItem("token"));
-
 export default defineComponent({
   name: "App",
 });
