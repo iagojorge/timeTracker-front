@@ -1,5 +1,5 @@
 <template>
-  <div class="columns is-gapless is-multiline dashboard">
+  <div class="columns is-gapless is-multiline dashboard" v-if="projetosProntos && carregandoDados">
     <div class="column is-7">
       <BoxGraficos>
         <GraficosBar />
@@ -7,7 +7,7 @@
     </div>
     <div class="column is-5">
       <BoxPie>
-        <GraficosPie v-if="projetosProntos" :projetos="projetos" />
+        <GraficosPie :projetos="projetos" />
       </BoxPie>
     </div>
     <div class="column is-3">
@@ -39,7 +39,7 @@
 
 <script lang="ts">
 import { defineComponent, ref, onMounted } from "vue";
-import { OBTER_PROJETOS } from "@/store/tipo.acoes";
+import { OBTER_DASHBOARD, OBTER_PROJETOS } from "@/store/tipo.acoes";
 import { useStore } from "@/store";
 import IProjeto from "@/interfaces/IProjeto";
 import BoxGraficos from "@/components/BoxGraficos.vue";
@@ -54,6 +54,12 @@ export default defineComponent({
     const store = useStore();
     const projetos = ref<IProjeto[]>([]);
     const projetosProntos = ref(false);
+    const tempoTotal = ref(0);
+    const tempoDia = ref(0);
+    const tempoSemana = ref(0);
+    const tempoMes = ref(0);
+
+    const carregandoDados = ref(false);
 
     const obterProjetos = async () => {
       try {
@@ -65,29 +71,33 @@ export default defineComponent({
       }
     };
 
-    onMounted(() => {
-      obterProjetos();
+    const obterDashboard = async () => {
+      try{
+        const response = await store.dispatch(OBTER_DASHBOARD)
+        tempoDia.value = response.tempoHoje;
+        tempoMes.value = response.tempoMes;
+        tempoSemana.value = response.tempoSemana;
+        carregandoDados.value = true;
+      } catch(erro) {
+        console.log(erro)
+      }
+    }
+
+    onMounted( async () => {
+      await obterProjetos();
+      await obterDashboard();
     });
 
-
-    let tempoTotal: number = 3362;
-    let tempoDia: number = 36;
-    let tempoSemana: number = 1920;
-    let tempoMes: number = 3362;
 
     return {
       projetos,
       projetosProntos,
-      tempoDia: new Date(tempoDia * 1000).toISOString().substr(11, 8),
-      tempoTotal: new Date(tempoTotal * 1000).toISOString().substr(11, 8),
-      tempoSemana: new Date(tempoSemana * 1000).toISOString().substr(11, 8),
-      tempoMes: new Date(tempoMes * 1000).toISOString().substr(11, 8),
+      carregandoDados,
+      tempoDia: new Date(tempoDia.value * 1000).toISOString().substr(11, 8),
+      tempoTotal: new Date(tempoTotal.value * 1000).toISOString().substr(11, 8),
+      tempoSemana: new Date(tempoSemana.value * 1000).toISOString().substr(11, 8),
+      tempoMes: new Date(tempoMes.value * 1000).toISOString().substr(11, 8),
     };
-
-    // for (let i: number = 0; i < projetos.value.length; i++) {
-    //    tempoDia += projetos.value[i].tempoDia
-    //    tempoTotal += projetos.value[i].tempoTotal
-    //  }
   },
   components: { GraficosBar, BoxGraficos, BoxPie, GraficosPie, BoxMini },
 });
