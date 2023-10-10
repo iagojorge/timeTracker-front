@@ -2,7 +2,7 @@
   <div class="columns is-gapless is-multiline dashboard" v-if="projetosProntos && carregandoDados">
     <div class="column is-7">
       <BoxGraficos>
-        <GraficosBar />
+        <GraficosBar :semanaTempo="semanaTempo"/>
       </BoxGraficos>
     </div>
     <div class="column is-5">
@@ -10,25 +10,19 @@
         <GraficosPie :projetos="projetos" />
       </BoxPie>
     </div>
-    <div class="column is-3">
-      <BoxMini>
-        <h1 class="texto-desc">TOTAL</h1>
-        <h1 class="tempo">{{ tempoTotal }}</h1>
-      </BoxMini>
-    </div>
-    <div class="column is-3">
+    <div class="column is-4">
       <BoxMini>
         <h1 class="texto-desc">ULTIMO MÊS</h1>
         <h1 class="tempo">{{ tempoMes }}</h1>
       </BoxMini>
     </div>
-    <div class="column is-3">
+    <div class="column is-4">
       <BoxMini>
         <h1 class="texto-desc">ULTIMA SEMANA</h1>
         <h1 class="tempo">{{ tempoSemana }}</h1>
       </BoxMini>
     </div>
-    <div class="column is-3">
+    <div class="column is-4">
       <BoxMini>
         <h1 class="texto-desc">HOJE</h1>
         <h1 class="tempo">{{ tempoDia }}</h1>
@@ -53,6 +47,7 @@ export default defineComponent({
   setup() {
     const store = useStore();
     const projetos = ref<IProjeto[]>([]);
+    const semanaTempo = ref([])
     const projetosProntos = ref(false);
     const tempoTotal = ref(0);
     const tempoDia = ref(0);
@@ -77,15 +72,17 @@ export default defineComponent({
         tempoDia.value = response.tempoHoje;
         tempoMes.value = response.tempoMes;
         tempoSemana.value = response.tempoSemana;
+        semanaTempo.value = response.semanaTempo;
         carregandoDados.value = true;
+        console.log(response)
       } catch(erro) {
         console.log(erro)
       }
     }
 
-    onMounted( async () => {
-      await obterProjetos();
-      await obterDashboard();
+    onMounted(() => {
+      obterProjetos();
+      obterDashboard();
     });
 
 
@@ -93,10 +90,10 @@ export default defineComponent({
       projetos,
       projetosProntos,
       carregandoDados,
-      tempoDia: new Date(tempoDia.value * 1000).toISOString().substr(11, 8),
-      tempoTotal: new Date(tempoTotal.value * 1000).toISOString().substr(11, 8),
-      tempoSemana: new Date(tempoSemana.value * 1000).toISOString().substr(11, 8),
-      tempoMes: new Date(tempoMes.value * 1000).toISOString().substr(11, 8),
+      tempoDia,
+      tempoSemana,
+      tempoMes,
+      semanaTempo
     };
   },
   components: { GraficosBar, BoxGraficos, BoxPie, GraficosPie, BoxMini },
