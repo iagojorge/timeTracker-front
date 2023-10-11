@@ -75,8 +75,7 @@
           emit("emitSalvarTarefa", dto);
         }
       };
-      console.log('teste')
-      console.log(idProjeto)
+      
       return{
         descricaoTarefa,
         idProjeto,

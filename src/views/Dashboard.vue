@@ -74,9 +74,7 @@ export default defineComponent({
         tempoSemana.value = response.tempoSemana;
         semanaTempo.value = response.semanaTempo;
         carregandoDados.value = true;
-        console.log(response)
       } catch(erro) {
-        console.log(erro)
       }
     }
 

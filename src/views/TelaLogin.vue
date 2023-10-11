@@ -78,7 +78,6 @@ export default defineComponent({
                 email: email.value,
                 password: password.value
             }).then((res) =>{
-                console.log(res.data)
                 const token = res.data.token
                 const name = res.data.name
                 const userId = res.data.id
