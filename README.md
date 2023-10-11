@@ -1,8 +1,4 @@
-## sobre o projeto
-
-## Nome do Projeto: TimeTracker
-
-## Descrição:
+## TimeTracker:
 
 O TimeTracker é um aplicativo web moderno desenvolvido em Vue.js e TypeScript, projetado para simplificar o rastreamento de tempo de tarefas e projetos de forma eficiente. O aplicativo oferece uma experiência intuitiva e fácil de usar, ajudando os usuários a gerenciar melhor seu tempo e recursos.
 
