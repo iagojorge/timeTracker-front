@@ -23,7 +23,8 @@ Oferece uma visão geral dos projetos existentes com detalhes relevantes.
 Um menu lateral responsivo proporciona uma navegação fácil.
 Os usuários podem iniciar, pausar e reiniciar o cronômetro de tempo para cada projeto diretamente a partir do menu.
 O menu também inclui opções de configuração e perfil do usuário.
-Tecnologias Utilizadas:
+
+##Tecnologias Utilizadas:
 
 Vue.js: O framework JavaScript progressivo é utilizado para criar uma interface de usuário dinâmica e interativa.
 TypeScript: Adiciona tipagem estática ao JavaScript para melhorar a robustez e a segurança do código.
