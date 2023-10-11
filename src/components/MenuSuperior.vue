@@ -25,13 +25,13 @@
         </div>
         <div class="column is-1">
           <i
-            class="fa-solid fa-moon temaButton"
+            class="fa-solid fa-moon temaButton margin"
             :class="{'fa-flip': flip}"
             @click="alterarTema"
             v-if="modoEscuro"
           ></i>
           <i
-            class="fa-solid fa-sun temaButton"
+            class="fa-solid fa-sun temaButton margin"
             :class="{'fa-flip': flip}"
             @click="alterarTema"
             v-if="!modoEscuro"
@@ -39,7 +39,20 @@
           <i class="fa-solid fa-arrows-rotate temaButton"  @click="refresh" :class="{ 'fa-spin': girando }"></i>
         </div>
         <div class="column is-2">
-          <i class="fa-solid fa-user temaButton"> Username</i>
+          <div class="dropdown is-hoverable">
+            <div class="dropdown-trigger">
+              <button class="button" aria-haspopup="true" aria-controls="dropdown-menu4">
+                <i class="fa-solid fa-user temaButton">{{name}}</i>
+              </button>
+            </div>
+            <div class="dropdown-menu" id="dropdown-menu4" role="menu">
+              <div class="dropdown-content dropdownCustom" >
+                <a href="#" class="dropdown-item dropdownCustom" @click="logout">
+                  Sair
+                </a>
+              </div>
+            </div>
+          </div>
         </div>
     </div>
 </template>
@@ -81,6 +94,10 @@ export default defineComponent({
             this.filtro = ""
             this.disableInput = false;
           }
+    },
+    logout(){
+      localStorage.clear()
+      this.refresh()
     }
   },  
   watch: {
@@ -90,13 +107,15 @@ export default defineComponent({
     const store = useStore();
     const filtro = ref("");
 
+    const name = localStorage.getItem('name');
+
     watchEffect(() => {
       store.dispatch(OBTER_PROJETOS, filtro.value);
-      console.log(filtro.value)
     });
   
     return{
-       filtro
+       filtro,
+       name
     }
   }
 });
@@ -136,7 +155,7 @@ input[disabled] {
     text-align: center;
     font-feature-settings: 'cv11' on, 'cv01' on, 'ss01' on;
     font-family: Inter;
-    font-size: 30px;
+    font-size: 1.5vw;
     font-style: normal;
     font-weight: bold;
     line-height: 20px; /* 142.857% */
@@ -149,9 +168,29 @@ input[disabled] {
   }
 
 .temaButton{
-    font-size: 30px;
+    font-size: 1.3vw;
     cursor: pointer;
-    margin-right: 30px;
     color: var(--texto-secundario);
+    background-color: var(--bg-primario);
+}
+
+.button {
+  background-color: var(--bg-primario);
+  border: none;
+  outline: none;
+  font-size: 0.5vw;
+}
+
+.dropdownCustom{
+  background-color: var(--bg-primario);
+}
+
+.dropdown-item:hover{
+  color: var(--texto-primario);
+  background-color: var(--bg-primario);
+}
+
+.margin{
+  margin-right: 1vw;
 }
 </style>

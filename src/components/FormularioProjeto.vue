@@ -43,7 +43,7 @@ export default defineComponent({
 
     if (props.id) {
       const projeto = store.state.projeto.projetos.find(
-        (proj) => proj.id == props.id
+        (proj) => proj._id == props.id
       );
       nomeProjeto.value = projeto?.nome || "";
     }

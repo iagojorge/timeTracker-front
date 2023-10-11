@@ -2,6 +2,9 @@
 import { createStore, Store, useStore as vuexUseStore } from "vuex";
 import { InjectionKey } from "vue";
 import { NOTIFICAR } from "./tipo-mutacoes";
+import { LOGIN, CADASTRO } from "./tipo.acoes";
+import http from "@/http";
+import IUser from "@/interfaces/IUser"
 import { INotificacao } from "@/interfaces/INotificacao";
 import { EstadoProjeto, projeto } from "./modules/projeto";
 
@@ -31,6 +34,14 @@ export const store = createStore<Estado>({
         );
       }, 3000);
     },
+  },
+  actions: {
+    [LOGIN](state, user: IUser){
+      return http.post("/auth/login", user)
+    },
+    [CADASTRO](state, user: IUser){
+      return http.post("/auth/register", user)
+    }
   },
   modules: {
     projeto

@@ -2,40 +2,76 @@ import { createRouter, createWebHashHistory, RouteRecordRaw } from "vue-router";
 import Projetos from "../views/Projetos.vue";
 import Dashboard from "../views/Dashboard.vue"
 import FormularioProjeto from "../components/FormularioProjeto.vue";
+import TelaLogin from "../views/TelaLogin.vue"
+import Layout from "@/views/Layout.vue"
 
 const rotas: RouteRecordRaw[] = [
   {
-    path: "/",
-    name: "Dashboard",
-    component: Dashboard,
-  },
-  {
-    path: "/projetos",
-    component: Projetos,
+    path: '/',
+    component: Layout, 
     children: [
       {
-        path: "",
-        name: "Projetos",
+        path: '',
+        name: 'Dashboard',
+        component: Dashboard,
+        meta: { requiresAuth: true },
+      },
+      {
+        path: 'projetos',
         component: Projetos,
-      },
-      {
-        path: "novo",
-        name: "Novo Projetos",
-        component: FormularioProjeto,
-      },
-      {
-        path: ":id",
-        name: "Editar Projetos",
-        component: FormularioProjeto,
-        props: true, //quando props é true vai pegar o :id e injetedar na viwe como se fosse uma prop do componente
+        children: [
+          {
+            path: '',
+            name: 'Projetos',
+            component: Projetos,
+          },
+          {
+            path: 'novo',
+            name: 'Novo Projetos',
+            component: FormularioProjeto,
+          },
+          {
+            path: ':id',
+            name: 'Editar Projetos',
+            component: FormularioProjeto,
+            props: true,
+          },
+        ],
+        meta: { requiresAuth: true },
       },
     ],
   },
+  {
+    path: '/login',
+    name: 'TelaLogin',
+    component: TelaLogin,
+  },
 ];
 
-const roteador = createRouter({
+const router = createRouter({
   history: createWebHashHistory(),
   routes: rotas,
 });
 
-export default roteador;
+// Guarda de navegação para proteger rotas que requerem autenticação
+router.beforeEach((to, from, next) => {
+  const token = localStorage.getItem('token');
+
+  if (to.matched.some((route) => route.meta.requiresAuth)) {
+    // Rota requer autenticação
+    if (!token) {
+      // Redireciona para a tela de login se não houver token
+      next('/login');
+    } else {
+      // Continua a navegação
+      next();
+    }
+  } else {
+    // Rota não requer autenticação
+    next();
+  }
+});
+
+export default router;
+
+

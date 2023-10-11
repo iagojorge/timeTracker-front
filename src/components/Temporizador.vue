@@ -13,7 +13,7 @@
         <i class="fas fa-pause"></i>
       </span>
     </a>
-    <a  class="circle-button" @click="finalizar" :class="{ 'icon-disabled': !tempoSegundos }">
+    <a  class="circle-button" @click="finalizar" :class="{ 'icon-disabled': !tempoSegundos || !projetoSelecionado }">
       <span class="icon">
         <i class="fas fa-stop"></i>
       </span>
@@ -44,7 +44,9 @@ export default defineComponent({
   },
   methods: {
     iniciar() {
+
         this.cronometroRodando = true;
+        
 
         this.cronometro = setInterval(() => {
             this.tempoSegundos += 1;
@@ -66,8 +68,8 @@ export default defineComponent({
 
 <style scoped>
   .circle-button {
-    width: 60px;
-    height: 60px;
+    width: 3.5vw;
+    height: 3.5vw;
     background-color: #4c4c4c; 
     border-radius: 50%; 
     display: flex;
@@ -75,7 +77,7 @@ export default defineComponent({
     justify-content: center;
     text-decoration: none;
     color: #fff; 
-    font-size: 24px; 
+    font-size: 1.5vw; 
   }
 
   .icon-disabled {

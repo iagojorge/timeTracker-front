@@ -6,6 +6,7 @@ import {
   CADASTRAR_PROJETOS,
   ALTERAR_PROJETOS,
   DELETAR_PROJETOS,
+  OBTER_DASHBOARD
 } from "@/store/tipo.acoes";
 import { Estado } from "@/store";
 import { Module } from "vuex";
@@ -22,15 +23,32 @@ export const projeto: Module<EstadoProjeto, Estado> = {
   },
   actions: {
     [OBTER_PROJETOS]({ commit }, filtro: string) {
-      let url = "projetos";
+      const userId = localStorage.getItem('userId');
 
-      if (filtro) {
-        url += "?nome=" + filtro;
+      // Verifique se o userId não é nulo antes de fazer a solicitação
+      if (userId) {
+        const config = {
+          params: { userId: userId } // Passa o userId como parâmetro de consulta
+        };
+        return http.get("/projetos/list", config).then((response) => {
+          commit(DEFINIR_PROJETO, response.data);
+          return response.data;
+        });
+      }else{
+        return 
       }
+    },
+    [OBTER_DASHBOARD]({ commit }, filtro: string) {
+      const userId = localStorage.getItem('userId');
 
-      http.get(url).then((response) => {
-        commit(DEFINIR_PROJETO, response.data)
-      });
+      if (userId) {
+        const config = {
+          params: { userId: userId } 
+        };
+        return http.get("/dashboard/list", config).then((response) => {return response.data});
+      }else{
+        return 
+      }
     },
     [CADASTRAR_PROJETOS](contexto, nomeProjeto: string) {
       return http.post("/projetos", {
@@ -38,7 +56,7 @@ export const projeto: Module<EstadoProjeto, Estado> = {
       });
     },
     [ALTERAR_PROJETOS](contexto, projeto: IProjeto) {
-      return http.put(`/projetos/${projeto.id}`, projeto).then(() => this.dispatch(OBTER_PROJETOS));
+      return http.put(`/projetos/${projeto._id}`, projeto).then(() => this.dispatch(OBTER_PROJETOS));
     },
     [DELETAR_PROJETOS](contexto, id: string) {
       return http.delete(`/projetos/${id}`).then(() => this.dispatch(OBTER_PROJETOS));

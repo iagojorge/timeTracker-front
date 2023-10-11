@@ -6,16 +6,16 @@
           <h1 class="texto-projeto">{{ projeto.nome || 'N/D' }}</h1>
         </div>
         <div class="column is-4">
-          <Cronometro :tempoSegundos="projeto.tempoDia">
+          <Cronometro :tempoSegundos=10>
             <template v-slot:tempoDia>
-              <h1 class="texto-tempo">HORAS TRABALHADAS HOJE</h1>
+              <h1 class="texto-tempo">HOJE</h1>
             </template>
           </Cronometro>
         </div>
         <div class="column is- 4">
-          <Cronometro :tempoSegundos="projeto.tempoTotal">
+          <Cronometro :tempoSegundos=10>
             <template v-slot:tempoDia>
-              <h1 class="texto-tempo">HORAS TRABALHADAS TOTAL</h1>
+              <h1 class="texto-tempo">TOTAL</h1>
             </template>
           </Cronometro>
         </div>
@@ -91,7 +91,7 @@ export default defineComponent({
     color: var(--texto-primario);
     text-align: center;
     font-family: Inter;
-    font-size: 30px;
+    font-size: 1.5vw;
     font-style: normal;
     line-height: 20px;
   }

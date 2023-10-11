@@ -7,9 +7,9 @@
           <select class="custom-select" v-model="idProjeto">
             <option value="">Selecione o projeto</option>
             <option
-            :value="projeto.id"
+            :value="projeto._id"
             v-for="projeto in projetos"
-            :key="projeto.id"
+            :key="projeto._id"
             >
             {{ projeto.nome }}
           </option>
@@ -50,7 +50,7 @@
       const { notificar } = useNotificador();
   
       const finalizarTarefa = function (tempoDecorrido: number): void {
-        const projeto = projetos.value.find((p) => p.id == idProjeto.value);
+        const projeto = projetos.value.find((p) => p._id == idProjeto.value);
         if (!projeto) {
           notificar(
             TipoNotificacao.ATENCAO,
@@ -58,24 +58,30 @@
             "Selecione um projeto antes de finalizar a tarefa!"
           );
         } else {
-          const projeto = projetos.value.find((proj) => proj.id == idProjeto.value);
-         
+          const projeto = projetos.value.find((proj) => proj._id == idProjeto.value);
+      
+          const tempo = {
+            data: new Date().toLocaleDateString('pt-BR'),
+            tempo: tempoDecorrido
+          }
+
+          projeto?.tempoGasto.push(tempo)
+
           const dto = {
-            id: projeto?.id,
+            _id: projeto?._id,
             nome: projeto?.nome,
-            tempo: tempoDecorrido,
-            tempoTotal: (projeto?.tempoTotal ?? 0) + tempoDecorrido,
-            tempoDia: (projeto?.tempoDia ?? 0) + tempoDecorrido
+            tempoGasto: projeto?.tempoGasto
           }
           emit("emitSalvarTarefa", dto);
         }
       };
+      
       return{
         descricaoTarefa,
         idProjeto,
         projetos,
         finalizarTarefa,
-        projetoSelecionado: idProjeto.value
+        projetoSelecionado: idProjeto
       }
     }
   });
@@ -88,7 +94,7 @@
       color: var(--text-campo);
       border: none;
       text-align: center;
-      width: 1000px;
+      width: 100vw;
   }
 
     input::placeholder {

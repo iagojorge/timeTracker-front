@@ -4,21 +4,21 @@
       "id": 1,
       "nome": "Desenvolvendo versão 4",
       "tempo": 3,
-      "tempoTotal": 242,
-      "tempoDia": 242
+      "tempoTotal": 2420,
+      "tempoDia": 0
     },
     {
       "id": 2,
-      "nome": "Jogando de mage fire",
+      "nome": "Estudando",
       "tempo": 6,
-      "tempoTotal": 30,
+      "tempoTotal": 311,
       "tempoDia": 30
     },
     {
       "id": 3,
-      "nome": "Clareira de corumbaia +10",
+      "nome": "Desenvolvendo Sistema",
       "tempo": 1,
-      "tempoTotal": 6,
+      "tempoTotal": 631,
       "tempoDia": 6
     }
   ]
