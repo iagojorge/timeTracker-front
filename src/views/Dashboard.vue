@@ -7,7 +7,7 @@
     </div>
     <div class="column is-5">
       <BoxPie>
-        <GraficosPie :projetos="projetos" />
+        <GraficosPie :projetoTempo="projetoTempo" />
       </BoxPie>
     </div>
     <div class="column is-4">
@@ -49,10 +49,10 @@ export default defineComponent({
     const projetos = ref<IProjeto[]>([]);
     const semanaTempo = ref([])
     const projetosProntos = ref(false);
-    const tempoTotal = ref(0);
     const tempoDia = ref(0);
     const tempoSemana = ref(0);
     const tempoMes = ref(0);
+    const projetoTempo = ref([])
 
     const carregandoDados = ref(false);
 
@@ -73,6 +73,7 @@ export default defineComponent({
         tempoMes.value = response.tempoMes;
         tempoSemana.value = response.tempoSemana;
         semanaTempo.value = response.semanaTempo;
+        projetoTempo.value = response.projetoTempo;
         carregandoDados.value = true;
       } catch(erro) {
       }
@@ -87,6 +88,7 @@ export default defineComponent({
     return {
       projetos,
       projetosProntos,
+      projetoTempo,
       carregandoDados,
       tempoDia,
       tempoSemana,
