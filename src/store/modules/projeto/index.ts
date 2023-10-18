@@ -24,14 +24,12 @@ export const projeto: Module<EstadoProjeto, Estado> = {
   actions: {
     [OBTER_PROJETOS]({ commit }, filtro: string) {
       const userId = localStorage.getItem('userId');
-
-      // Verifique se o userId não é nulo antes de fazer a solicitação
       if (userId) {
         const config = {
-          params: { userId: userId } // Passa o userId como parâmetro de consulta
+          params: { userId: userId, filtro: filtro }
         };
         return http.get("/projetos/list", config).then((response) => {
-          commit(DEFINIR_PROJETO, response.data);
+          commit(DEFINIR_PROJETO, response.data.projetoTempo);
           return response.data;
         });
       }else{
@@ -53,6 +51,7 @@ export const projeto: Module<EstadoProjeto, Estado> = {
     [CADASTRAR_PROJETOS](contexto, nomeProjeto: string) {
       return http.post("/projetos", {
         nome: nomeProjeto,
+        userId: localStorage.getItem('userId')
       });
     },
     [ALTERAR_PROJETOS](contexto, projeto: IProjeto) {

@@ -1,9 +1,9 @@
 <template>
   <section>
       <div class="field is-grouped">
-        <p class="control">
-            <i class="fas fa-plus tema-button" @click="salvar"></i>
-        </p>
+          <p class="control">
+              <i class="fas fa-plus tema-button" @click="salvar" :class="{ 'icon-disabled': !nomeProjeto }"></i>
+          </p>
         <p class="control is-expanded">
           <input
           type="text"
@@ -24,7 +24,6 @@ import { useStore } from "@/store";
 import { TipoNotificacao } from "@/interfaces/INotificacao";
 import useNotificador from "@/hooks/notificador";
 import { CADASTRAR_PROJETOS, ALTERAR_PROJETOS} from "@/store/tipo.acoes";
-import { useRouter } from "vue-router";
 
 export default defineComponent({
   name: "FormularioProjeto",
@@ -35,7 +34,6 @@ export default defineComponent({
 
   },
   setup(props) {
-    const router = useRouter();
     const store = useStore();
     const { notificar } = useNotificador();
 
@@ -104,6 +102,11 @@ export default defineComponent({
   font-size: 40px;
   cursor: pointer;
   color: var(--texto-secundario);
+}
+
+.icon-disabled {
+  opacity: 0.5; 
+  pointer-events: none; 
 }
 
 </style>

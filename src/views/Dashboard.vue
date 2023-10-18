@@ -46,7 +46,6 @@ export default defineComponent({
   name: "Dashboard",
   setup() {
     const store = useStore();
-    const projetos = ref<IProjeto[]>([]);
     const semanaTempo = ref([])
     const projetosProntos = ref(false);
     const tempoDia = ref(0);
@@ -59,7 +58,8 @@ export default defineComponent({
     const obterProjetos = async () => {
       try {
         const response = await store.dispatch(OBTER_PROJETOS);
-        projetos.value = response;
+        projetoTempo.value = response.projetoTempo
+        console.log(response)
         projetosProntos.value = true;
       } catch (erro) {
         console.error(erro);
@@ -73,7 +73,6 @@ export default defineComponent({
         tempoMes.value = response.tempoMes;
         tempoSemana.value = response.tempoSemana;
         semanaTempo.value = response.semanaTempo;
-        projetoTempo.value = response.projetoTempo;
         carregandoDados.value = true;
       } catch(erro) {
       }
@@ -86,7 +85,6 @@ export default defineComponent({
 
 
     return {
-      projetos,
       projetosProntos,
       projetoTempo,
       carregandoDados,

@@ -69,7 +69,7 @@ export default defineComponent({
       modoEscuro: false,
       flip: false,
       girando: false,
-      disableInput: false
+      disableInput: true
     };
   }, 
   methods: {
@@ -100,6 +100,9 @@ export default defineComponent({
       this.refresh()
     }
   },  
+  created(){
+      this.verificaRota()
+  },
   watch: {
     '$route': 'verificaRota',
   },

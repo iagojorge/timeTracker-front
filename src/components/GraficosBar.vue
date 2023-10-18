@@ -23,7 +23,7 @@ export default defineComponent({
     let labelsRota: string[] = [];
     let dataRota: number[] = [];
 
-    for (let i = 0; i < this.semanaTempo.length; i++) {
+    for (let i = 6; i >= 0; i--) {
       labelsRota.push(this.semanaTempo[i].nome);
       dataRota.push(this.semanaTempo[i].tempo);
     }

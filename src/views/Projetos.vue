@@ -75,6 +75,7 @@ export default defineComponent({
 <style scoped>
 .projetos {
   width: 100%;
+  min-height: 90vh;
   height: 100%;
   padding: 1.25rem;
   padding-right: 3%;

@@ -6,14 +6,14 @@
           <h1 class="texto-projeto">{{ projeto.nome || 'N/D' }}</h1>
         </div>
         <div class="column is-4">
-          <Cronometro :tempoSegundos=10>
+          <Cronometro :tempoSegundos=projeto.tempoHoje>
             <template v-slot:tempoDia>
               <h1 class="texto-tempo">HOJE</h1>
             </template>
           </Cronometro>
         </div>
         <div class="column is- 4">
-          <Cronometro :tempoSegundos=10>
+          <Cronometro :tempoSegundos=projeto.tempo>
             <template v-slot:tempoDia>
               <h1 class="texto-tempo">TOTAL</h1>
             </template>
