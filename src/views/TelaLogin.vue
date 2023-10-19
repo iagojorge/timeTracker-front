@@ -5,51 +5,73 @@
                 <h1>Faça login<br>E venha conhecer o TimeTracker</h1>
                 <img src="../assets/save-time-animate.svg" class="login-image" alt="Time animação">
             </div>
-            <div class="right-login" v-if="!registro">
-                <div class="card-login">
-                    <h1>Login</h1>
-                    <div class="textfield">
-                        <label for="usuario">E-mail</label>
-                        <input type="text" name="email" placeholder="E-mail" v-model="email">
-                    </div>
-                    <div class="textfield">
-                        <label for="senha">Senha</label>
-                        <input type="password" name="password" placeholder="Senha" v-model="password">
-                    </div>
-                    <button class="btn-login" @click="login">Login</button>
-                    <h2 @click="registrar">Registre-se</h2>
+                <form @submit.prevent="login">
+                <div class="right-login" v-if="!registro" :class="{ 'fade-out': fade, 'fade-in': !fade }">
+                        <div class="card-login">
+                            <h1>Login</h1>
+                            <div class="textfield">
+                                <label for="usuario">E-mail</label>
+                                <input type="text" name="email" placeholder="E-mail" v-model="email" :class="{ 'error-border': typeError == 1 }">
+                                <div class="error-message" v-if="typeError == 1">
+                                    {{ errorMessage }}
+                                </div>
+                            </div>
+                            <div class="textfield">
+                                <label for="senha">Senha</label>
+                                <input type="password" name="password" placeholder="Senha" v-model="password" :class="{ 'error-border': typeError == 2 }">
+                                <div class="error-message" v-if="typeError == 2">
+                                    {{ errorMessage }}
+                                </div>
+                            </div>
+                            <button type="submit" class="btn-login" @click="login">Login</button>
+                            <h2 @click="registrar">Registre-se</h2>
+                        </div>
                 </div>
-            </div>
-            <div class="right-login" v-if="registro">
-                <div class="card-login">
-                    <h1>Cadastro</h1>
-                    <div class="textfield">
-                        <label for="usuario">Nome de usuário</label>
-                        <input type="text" name="nome" placeholder="Nome de usuário" v-model="user">
+            </form>
+                <form @submit.prevent="cadastro">
+                    <div class="right-login" v-if="registro" :class="{ 'fade-out': !fade, 'fade-in': fade }">
+                        <div class="card-login">
+                            <h1>Cadastro</h1>
+                            <div class="textfield">
+                                <label for="usuario">Nome de usuário</label>
+                                <input type="text" name="nome" placeholder="Nome de usuário" v-model="user" :class="{ 'error-border': typeError == 3 }">
+                                <div class="error-message" v-if="typeError == 3">
+                                    {{ errorMessage }}
+                                </div>
+                            </div>
+                            <div class="textfield">
+                                <label for="usuario">E-mail</label>
+                                <input type="email" name="email" placeholder="E-mail" v-model="email" :class="{ 'error-border': typeError == 4 }">
+                                <div class="error-message" v-if="typeError == 4">
+                                    {{ errorMessage }}
+                                </div>
+                            </div>
+                            <div class="textfield">
+                                <label for="senha">Senha</label>
+                                <input type="password" name="password" placeholder="Senha" v-model="password" :class="{ 'error-border': typeError == 5 }">
+                                <div class="error-message" v-if="typeError == 5">
+                                    {{ errorMessage }}
+                                </div>
+                            </div>
+                            <div class="textfield">
+                                <label for="senha">Confirme a senha</label>
+                                <input type="password" name="passwordConfirm" placeholder="Confirme a senha" v-model="passwordConfirm" :class="{ 'error-border': typeError == 6 }">
+                                <div class="error-message" v-if="typeError == 6">
+                                    {{ errorMessage }}
+                                </div>
+                            </div>
+                            <button type="submit" class="btn-login" @click="cadastro">Cadastre-se</button>
+                            <h2 @click="registrar">Já tem conta? Faça login</h2>
+                        </div>
                     </div>
-                    <div class="textfield">
-                        <label for="usuario">E-mail</label>
-                        <input type="email" name="email" placeholder="E-mail" v-model="email">
-                    </div>
-                    <div class="textfield">
-                        <label for="senha">Senha</label>
-                        <input type="password" name="password" placeholder="Senha" v-model="password">
-                    </div>
-                    <div class="textfield">
-                        <label for="senha">Confirme a senha</label>
-                        <input type="password" name="passwordConfirm" placeholder="Confirme a senha" v-model="passwordConfirm">
-                    </div>
-                    <button class="btn-login" @click="cadastro">Cadastre-se</button>
-                    <h2 @click="registrar">Já tem conta? Faça login</h2>
-                </div>
-            </div>
+                </form>
         </div>
     </main>
 </template>
 
 <script lang="ts">
 import { store } from '@/store';
-import { defineComponent, ref, inject  } from 'vue';
+import { defineComponent, ref } from 'vue';
 import { LOGIN, CADASTRO } from '@/store/tipo.acoes';
 import { useRouter  } from 'vue-router';
 
@@ -58,18 +80,25 @@ export default defineComponent({
     data(){
         return {
             registro: false,
+            fade: false,
       };
     },
     methods:{
         registrar(){
+            setTimeout(() => {
+                this.fade = !this.fade;
+            }, 100);
             this.registro = !this.registro
-        }
+            this.clear()
+        },
     },
     setup(){
         const user = ref("");
         const password = ref("");
         const email = ref("");
         const passwordConfirm = ref ("");
+        const errorMessage = ref('')
+        const typeError = ref(0)
 
         const router = useRouter()
 
@@ -85,6 +114,9 @@ export default defineComponent({
                 localStorage.setItem('name', name);
                 localStorage.setItem('userId', userId)
                 router.push('/');
+            }).catch((err) => {    
+                errorMessage.value = err.response.data.msg;
+                typeError.value = err.response.data.type;
             })
         }
 
@@ -96,8 +128,19 @@ export default defineComponent({
                confirmPassword: passwordConfirm.value 
             }).then(() => {
                 login()
+            }).catch((err) => {    
+                errorMessage.value = err.response.data.msg;
+                typeError.value = err.response.data.type;
             })
         } 
+
+        const clear = function (){
+            user.value = ''
+            password.value = ''
+            email.value = ''
+            passwordConfirm.value = ''
+            typeError.value = 0
+        }
 
         return {
             user,
@@ -105,7 +148,10 @@ export default defineComponent({
             email,
             passwordConfirm,
             login,
-            cadastro
+            cadastro,
+            errorMessage,
+            typeError,
+            clear
         }
     }
 })
@@ -191,7 +237,7 @@ main * {
     flex-direction: column;
     align-items: flex-start;
     justify-content: center;
-    margin: 10px 0px;
+    margin: 10px 0px; 
 }
 
 .textfield > input{
@@ -225,6 +271,25 @@ main * {
     cursor: pointer;
     box-shadow: 0px 10px 40px -12px #f0ffffde;
 }
+
+.error-message{
+    color: #FF0000;
+}
+
+.error-border{
+    border: 1px solid #FF0000 !important;
+    border-radius: 5px; 
+}
+
+.fade-out {
+    opacity: 0;
+    transition: opacity 0.5s; /* Defina a duração da transição desejada */
+  }
+  
+  .fade-in {
+    opacity: 1;
+    transition: opacity 0.5s; /* Defina a duração da transição desejada */
+  }
 
 @media only screen and (max-width: 950px){
     .card-login{
