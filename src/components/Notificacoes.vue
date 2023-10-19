@@ -9,7 +9,7 @@
       <div class="message-header">
         {{ notificacao.titulo }}
       </div>
-      <div class="message-body">
+      <div class="message-body with-background">
         {{ notificacao.texto }}
       </div>
     </artificle>
@@ -49,5 +49,9 @@ export default defineComponent({
   width: 300px;
   padding: 0px;
   z-index: 105;
+}
+
+.with-background {
+  background-color: #fff;
 }
 </style>

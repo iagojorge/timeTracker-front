@@ -1,25 +1,30 @@
 <template>
   <section>
     <box>
-      <div class="columns clicavel" @click="projetoClicado">
+      <div class="columns">
         <div class="column is-4">
           <h1 class="texto-projeto">{{ projeto.nome || 'N/D' }}</h1>
         </div>
         <div class="column is-4">
-          <Cronometro :tempoSegundos=10>
+          <Cronometro :tempoSegundos=projeto.tempoHoje>
             <template v-slot:tempoDia>
               <h1 class="texto-tempo">HOJE</h1>
             </template>
           </Cronometro>
         </div>
         <div class="column is- 4">
-          <Cronometro :tempoSegundos=10>
+          <Cronometro :tempoSegundos=projeto.tempo>
             <template v-slot:tempoDia>
               <h1 class="texto-tempo">TOTAL</h1>
             </template>
           </Cronometro>
         </div>
+        <div class="icons">
+          <i class="fa-solid fa-pen margin" @click="projetoClicado"></i>
+          <i class="fa-solid fa-trash" @click="excluir(projeto._id, projeto.nome)"></i>
       </div>
+      </div>
+      
     </box>
   </section>
 </template>
@@ -104,5 +109,18 @@ export default defineComponent({
     font-style: normal;
     margin-top: 8%;
     text-transform: uppercase;
+  }
+
+  .icons{
+    font-size: 1.6vw;
+  }
+
+  .icons > i {
+    display: block;
+    cursor: pointer;
+  }
+
+  .margin {
+    margin-bottom: 5vw;
   }
 </style>

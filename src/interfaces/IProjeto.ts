@@ -5,4 +5,6 @@ export default interface IProjeto {
     data: String,
     tempo: Number
 }]
+  tempo: number;
+  tempoHoje: number;
 }

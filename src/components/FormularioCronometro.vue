@@ -44,7 +44,7 @@
     setup (props, { emit }){
   
       const store = useStore(key);
-      const projetos = computed(() => store.state.projeto.projetos);
+      const projetos = computed(() => store.state.projeto.projetos);  
       const descricaoTarefa = ref("");
       const idProjeto = ref("");
       const { notificar } = useNotificador();
@@ -65,13 +65,12 @@
             tempo: tempoDecorrido
           }
 
-          projeto?.tempoGasto.push(tempo)
-
           const dto = {
             _id: projeto?._id,
             nome: projeto?.nome,
-            tempoGasto: projeto?.tempoGasto
+            tempoGasto: tempo
           }
+
           emit("emitSalvarTarefa", dto);
         }
       };
