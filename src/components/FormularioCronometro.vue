@@ -71,7 +71,6 @@
             tempoGasto: tempo
           }
 
-          console.log(dto)
           emit("emitSalvarTarefa", dto);
         }
       };

@@ -59,7 +59,6 @@ export default defineComponent({
       try {
         const response = await store.dispatch(OBTER_PROJETOS);
         projetoTempo.value = response.projetoTempo
-        console.log(response)
         projetosProntos.value = true;
       } catch (erro) {
         console.error(erro);
