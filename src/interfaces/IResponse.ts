@@ -1,6 +1,6 @@
 export default interface IResponse {
-    nome: string;
-    tempo: number;
-    tempoHoje: number;
+    name: string;
+    time: number;
+    timeToday: number;
   }
   

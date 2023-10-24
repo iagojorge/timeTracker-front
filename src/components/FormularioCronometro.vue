@@ -7,11 +7,11 @@
           <select class="custom-select" v-model="idProjeto">
             <option value="">Selecione o projeto</option>
             <option
-            :value="projeto._id"
+            :value="projeto.id"
             v-for="projeto in projetos"
-            :key="projeto._id"
+            :key="projeto.id"
             >
-            {{ projeto.nome }}
+            {{ projeto.name }}
           </option>
         </select>
       </div>
@@ -50,7 +50,7 @@
       const { notificar } = useNotificador();
   
       const finalizarTarefa = function (tempoDecorrido: number): void {
-        const projeto = projetos.value.find((p) => p._id == idProjeto.value);
+        const projeto = projetos.value.find((p) => p.id == idProjeto.value);
         if (!projeto) {
           notificar(
             TipoNotificacao.ATENCAO,
@@ -58,17 +58,17 @@
             "Selecione um projeto antes de finalizar a tarefa!"
           );
         } else {
-          const projeto = projetos.value.find((proj) => proj._id == idProjeto.value);
+          const projeto = projetos.value.find((proj) => proj.id == idProjeto.value);
       
           const tempo = {
-            data: new Date().toLocaleDateString('pt-BR'),
-            tempo: tempoDecorrido
+            date: new Date().toLocaleDateString('pt-BR'),
+            time: tempoDecorrido
           }
 
           const dto = {
-            _id: projeto?._id,
-            nome: projeto?.nome,
-            tempoGasto: tempo
+            id: projeto?.id,
+            name: projeto?.name,
+            timeSpent: tempo
           }
 
           emit("emitSalvarTarefa", dto);

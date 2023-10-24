@@ -19,7 +19,7 @@
         <input
           type="text"
           class="input"
-          v-model="projetoSelecionado.nome"
+          v-model="projetoSelecionado.name"
           id="nomeProjeto"
         />
       </div>

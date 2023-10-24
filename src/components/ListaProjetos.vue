@@ -3,17 +3,17 @@
     <box>
       <div class="columns">
         <div class="column is-4">
-          <h1 class="texto-projeto">{{ projeto.nome || 'N/D' }}</h1>
+          <h1 class="texto-projeto">{{ projeto.name || 'N/D' }}</h1>
         </div>
         <div class="column is-4">
-          <Cronometro :tempoSegundos=projeto.tempoHoje>
+          <Cronometro :tempoSegundos=projeto.timeTotalToday>
             <template v-slot:tempoDia>
               <h1 class="texto-tempo">HOJE</h1>
             </template>
           </Cronometro>
         </div>
         <div class="column is- 4">
-          <Cronometro :tempoSegundos=projeto.tempo>
+          <Cronometro :tempoSegundos=projeto.timeTotalProject>
             <template v-slot:tempoDia>
               <h1 class="texto-tempo">TOTAL</h1>
             </template>
@@ -21,7 +21,7 @@
         </div>
         <div class="icons">
           <i class="fa-solid fa-pen margin" @click="projetoClicado"></i>
-          <i class="fa-solid fa-trash" @click="excluir(projeto._id, projeto.nome)"></i>
+          <i class="fa-solid fa-trash" @click="excluir(projeto.id, projeto.name)"></i>
       </div>
       </div>
       
@@ -56,6 +56,8 @@ export default defineComponent({
   },
   methods: {
     excluir(id: string, nome: string) {
+      console.log(id)
+      console.log(this.projeto)
       this.store
         .dispatch(DELETAR_PROJETOS, id)
         .then(() => {
@@ -105,7 +107,7 @@ export default defineComponent({
     color: var(--texto-primario);
     text-align: center;
     font-family: Inter;
-    font-size: 30px;
+    font-size: 1.5vw;
     font-style: normal;
     margin-top: 8%;
     text-transform: uppercase;

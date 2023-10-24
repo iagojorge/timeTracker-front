@@ -1,10 +1,12 @@
 export default interface IProjeto {
-  _id: string;
-  nome: string;
-  tempoGasto: [{
-    data: String,
-    tempo: Number
-}]
-  tempo: number;
-  tempoHoje: number;
+  id: string;
+  name: string;
+  timeSpent: [
+    {
+      date: String,
+      time: Number,
+    },
+  ],
+  timeTotalProject: number;
+  timeTotalToday: number;
 }

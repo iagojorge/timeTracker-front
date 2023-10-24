@@ -17,8 +17,9 @@ export interface EstadoProjeto {
 
 export const projeto: Module<EstadoProjeto, Estado> = {
   mutations: {
-    [DEFINIR_PROJETO](state, projetos: IProjeto[]) {
+    [DEFINIR_PROJETO](state, projetos: IProjeto[]) {  
       state.projetos = projetos;
+   
     },
   },
   actions: {
@@ -26,10 +27,10 @@ export const projeto: Module<EstadoProjeto, Estado> = {
       const userId = localStorage.getItem('userId');
       if (userId) {
         const config = {
-          params: { userId: userId, filtro: filtro }
+          params: { userId: userId, nameProject: filtro }
         };
-        return http.get("/projetos/list", config).then((response) => {
-          commit(DEFINIR_PROJETO, response.data.projetoTempo);
+        return http.get("/api/projects/summary/list", config).then((response) => {
+          commit(DEFINIR_PROJETO, response.data);
           return response.data;
         });
       }else{
@@ -43,22 +44,22 @@ export const projeto: Module<EstadoProjeto, Estado> = {
         const config = {
           params: { userId: userId } 
         };
-        return http.get("/dashboard/list", config).then((response) => {return response.data});
+        return http.get("/api/projects/dashboard/list", config).then((response) => {return response.data});
       }else{
         return 
       }
     },
     [CADASTRAR_PROJETOS](contexto, nomeProjeto: string) {
-      return http.post("/projetos", {
-        nome: nomeProjeto,
+      return http.post("/api/projects", { 
+        name: nomeProjeto,
         userId: localStorage.getItem('userId')
       });
     },
     [ALTERAR_PROJETOS](contexto, projeto: IProjeto) {
-      return http.put(`/projetos/${projeto._id}`, projeto).then(() => this.dispatch(OBTER_PROJETOS));
+      return http.put(`/api/projects/${projeto.id}`, projeto).then(() => this.dispatch(OBTER_PROJETOS));
     },
     [DELETAR_PROJETOS](contexto, id: string) {
-      return http.delete(`/projetos/${id}`).then(() => this.dispatch(OBTER_PROJETOS));
+      return http.delete(`/api/projects/${id}`).then(() => this.dispatch(OBTER_PROJETOS));
     },
   },
 };

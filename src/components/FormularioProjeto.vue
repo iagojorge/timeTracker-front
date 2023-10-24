@@ -41,9 +41,9 @@ export default defineComponent({
 
     if (props.id) {
       const projeto = store.state.projeto.projetos.find(
-        (proj) => proj._id == props.id
+        (proj) => proj.id == props.id
       );
-      nomeProjeto.value = projeto?.nome || "";
+      nomeProjeto.value = projeto?.name || "";
     }
 
     const sucessoRota = function () {

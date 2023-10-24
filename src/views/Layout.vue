@@ -79,7 +79,7 @@ body {
   }
 
   .main-layout {
-    width: 100vw;
+    width: 101vw;
     min-height: 100vh;
     height: 100%;
     display: flex;
