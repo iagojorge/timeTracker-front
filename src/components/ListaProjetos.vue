@@ -56,8 +56,6 @@ export default defineComponent({
   },
   methods: {
     excluir(id: string, nome: string) {
-      console.log(id)
-      console.log(this.projeto)
       this.store
         .dispatch(DELETAR_PROJETOS, id)
         .then(() => {

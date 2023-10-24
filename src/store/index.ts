@@ -37,10 +37,10 @@ export const store = createStore<Estado>({
   },
   actions: {
     [LOGIN](state, user: IUser){
-      return http.get("https://mocki.io/v1/733da37a-725a-403d-a228-bc27b8ae1c71")
+      return http.post("/api/user/login", user)
     },
     [CADASTRO](state, user: IUser){
-      return http.post("/auth/register", user)
+      return http.post("/api/user/register", user)
     }
   },
   modules: {
