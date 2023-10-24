@@ -35,7 +35,6 @@
 import { defineComponent, ref, onMounted } from "vue";
 import { OBTER_DASHBOARD, OBTER_PROJETOS } from "@/store/tipo.acoes";
 import { useStore } from "@/store";
-import IProjeto from "@/interfaces/IProjeto";
 import BoxGraficos from "@/components/BoxGraficos.vue";
 import GraficosBar from "@/components/GraficosBar.vue";
 import BoxPie from "@/components/BoxPie.vue";
@@ -58,7 +57,7 @@ export default defineComponent({
     const obterProjetos = async () => {
       try {
         const response = await store.dispatch(OBTER_PROJETOS);
-        projetoTempo.value = response.projetoTempo
+        projetoTempo.value = response
         projetosProntos.value = true;
       } catch (erro) {
         console.error(erro);
@@ -68,10 +67,10 @@ export default defineComponent({
     const obterDashboard = async () => {
       try{
         const response = await store.dispatch(OBTER_DASHBOARD)
-        tempoDia.value = response.tempoHoje;
-        tempoMes.value = response.tempoMes;
-        tempoSemana.value = response.tempoSemana;
-        semanaTempo.value = response.semanaTempo;
+        tempoDia.value = response.timeToday;
+        tempoMes.value = response.timeMonth;
+        tempoSemana.value = response.timeLastWeek;
+        semanaTempo.value = response.timeWeek;
         carregandoDados.value = true;
       } catch(erro) {
       }

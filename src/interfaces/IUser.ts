@@ -1,4 +1,4 @@
-export default interface IProjeto {
+export default interface IUser {
     name: string;
     email: string;
     password: string;

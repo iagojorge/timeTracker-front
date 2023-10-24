@@ -23,9 +23,10 @@ export default defineComponent({
     let labelsRota: string[] = [];
     let dataRota: number[] = [];
 
+
     for (let i = 6; i >= 0; i--) {
-      labelsRota.push(this.semanaTempo[i].nome);
-      dataRota.push(this.semanaTempo[i].tempo);
+      labelsRota.push(this.semanaTempo[i].name);
+      dataRota.push(this.semanaTempo[i].time);
     }
 
     const data: ChartData = {
@@ -73,8 +74,8 @@ export default defineComponent({
             display: false,
           },
         },
-        responsive: true, // Tornar o gráfico responsivo
-        maintainAspectRatio: false, // Não manter uma proporção de aspecto fixa
+        responsive: true, 
+        maintainAspectRatio: false,
       },
     };
     const ctx = <HTMLCanvasElement>document.getElementById("myChartBar");

@@ -37,10 +37,10 @@ export const store = createStore<Estado>({
   },
   actions: {
     [LOGIN](state, user: IUser){
-      return http.post("/auth/login", user)
+      return http.post("/api/user/login", user)
     },
     [CADASTRO](state, user: IUser){
-      return http.post("/auth/register", user)
+      return http.post("/api/user/register", user)
     }
   },
   modules: {

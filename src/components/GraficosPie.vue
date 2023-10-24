@@ -5,16 +5,16 @@
 </template>
 
 <script lang="ts">
-import { ChartData, TooltipItem } from "chart.js";
+import { ChartData } from "chart.js";
 import Chart, { ChartConfiguration } from "chart.js/auto";
 import { defineComponent, PropType } from "vue";
-import IResponse from "@/interfaces/IResponse";
+import IProjeto from "@/interfaces/IProjeto";
 
 export default defineComponent({
   name: "GraficosPie",
   props: {
     projetoTempo: {
-      type: Array as PropType<IResponse[]>,
+      type: Array as PropType<IProjeto[]>,
       default: 0,
     },
   },
@@ -24,8 +24,8 @@ export default defineComponent({
     let dataRota: number[] = [];
 
     for (let i = 0; i < this.projetoTempo.length; i++) {
-      labelsRota.push(this.projetoTempo[i].nome);
-      dataRota.push(this.projetoTempo[i].tempo);
+      labelsRota.push(this.projetoTempo[i].name);
+      dataRota.push(this.projetoTempo[i].timeTotalProject);
     }
 
     const data: ChartData = {

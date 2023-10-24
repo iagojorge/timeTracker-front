@@ -20,6 +20,7 @@ export default defineComponent({
     const store = useStore();
 
     const salvarProjeto = function (projeto: IProjeto) {
+
       store.dispatch(ALTERAR_PROJETOS, projeto);
     }
 

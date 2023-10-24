@@ -283,17 +283,28 @@ main * {
 
 .fade-out {
     opacity: 0;
-    transition: opacity 0.5s; /* Defina a duração da transição desejada */
+    transition: opacity 0.5s;
   }
   
   .fade-in {
     opacity: 1;
-    transition: opacity 0.5s; /* Defina a duração da transição desejada */
+    transition: opacity 0.5s;
   }
 
 @media only screen and (max-width: 950px){
     .card-login{
         width: 85%;
+        display: flex;
+    }
+
+    .main-login{
+        height: 100vh;
+    }
+}
+
+@media only screen and (max-height: 700px){
+    .main-login{
+        height: 180vh;
     }
 }
 
@@ -304,6 +315,10 @@ main * {
 
     .left-login > h1{
         display: none;
+    }
+
+    .main-login{
+        height: 150vh;
     }
 
     .left-login{
