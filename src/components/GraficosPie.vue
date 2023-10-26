@@ -99,7 +99,7 @@ export default defineComponent({
   display: flex;
   flex-direction: column;
   align-items: flex-end;
-  height: 500px; 
+  height: 500px;
 }
 #myChartPie {
   position: sticky;

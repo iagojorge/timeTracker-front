@@ -16,7 +16,7 @@ export default defineComponent({
 .box {
   margin-top: 20px;
   padding: 50px;
-  background: var( --bg-secundario);
+  background: var(--bg-secundario);
   box-sizing: border-box;
 }
 </style>

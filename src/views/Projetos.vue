@@ -1,11 +1,11 @@
 <template>
   <div class="projetos">
-    <FormularioProjeto/>
-    <ListaProjetos 
-    v-for="(projeto, index) in projetos"
-    :key="index"
-    :projeto="projeto"
-    @aoProjetoClicado="selecionarProjeto(projeto)"
+    <FormularioProjeto />
+    <ListaProjetos
+      v-for="(projeto, index) in projetos"
+      :key="index"
+      :projeto="projeto"
+      @aoProjetoClicado="selecionarProjeto(projeto)"
     />
   </div>
   <Modal :mostrar="projetoSelecionado != null" v-if="projetoSelecionado">
@@ -26,7 +26,7 @@
     </template>
     <template v-slot:footer>
       <button class="button is-success" @click="editarProjeto">Salvar</button>
-      <button class="button is-danger" @click="close">Cancelar</button>
+      <button class="button is-danger" @click="close()">Cancelar</button>
     </template>
   </Modal>
 </template>
@@ -40,23 +40,24 @@ import ListaProjetos from "@/components/ListaProjetos.vue";
 import { TipoNotificacao } from "@/interfaces/INotificacao";
 import useNotificador from "@/hooks/notificador";
 import { useStore } from "@/store";
-import { ALTERAR_PROJETOS } from "@/store/tipo.acoes";
+import { ALTERAR_PROJETOS, OBTER_PROJETOS } from "@/store/tipo.acoes";
 
 export default defineComponent({
   name: "Projetos",
-  components:{
+  components: {
     Modal,
     FormularioProjeto,
-    ListaProjetos
-},  
+    ListaProjetos,
+  },
   data() {
     return {
       projetoSelecionado: null as IProjeto | null,
     };
-  },  
+  },
   methods: {
     close() {
       this.projetoSelecionado = null;
+      this.store.dispatch(OBTER_PROJETOS);
     },
     selecionarProjeto(projeto: IProjeto) {
       this.projetoSelecionado = projeto;
@@ -71,25 +72,26 @@ export default defineComponent({
             "Projeto alterada com sucesso!"
           );
           this.close();
-        }).catch(() => {
+        })
+        .catch(() => {
           this.notificar(
             TipoNotificacao.ERRO,
             "Projeto",
             "Erro ao alterar o Projeto"
           );
         });
-    }
+    },
   },
-  setup(){
+  setup() {
     const store = useStore();
     const { notificar } = useNotificador();
 
-    return{
+    return {
       projetos: computed(() => store.state.projeto.projetos),
       store,
-      notificar
-    }
-  }
+      notificar,
+    };
+  },
 });
 </script>
 
@@ -103,7 +105,7 @@ export default defineComponent({
   box-sizing: border-box;
 }
 
-.input{
+.input {
   background: var(--bg-campo);
   border: none;
   color: var(--text-campo);

@@ -1,26 +1,25 @@
 <template>
-    <div class="box has-text-weight-build">
-      <slot></slot>
-    </div>
-  </template>
-  
-  <script lang="ts">
-  import { defineComponent } from "vue";
-  
-  export default defineComponent({
-    name: "BoxPie",
-  });
-  </script>
-  
-  <style scoped>
-  .box {
-    border-radius: 30px;
-    width: 95%;
-    height: 100%;
-    margin-right: 2%;
-    margin-top: 20px;
-    padding: 5%;
-    background: var( --bg-secundario);
-  }
-  </style>
-  
+  <div class="box has-text-weight-build">
+    <slot></slot>
+  </div>
+</template>
+
+<script lang="ts">
+import { defineComponent } from "vue";
+
+export default defineComponent({
+  name: "BoxPie",
+});
+</script>
+
+<style scoped>
+.box {
+  border-radius: 30px;
+  width: 95%;
+  height: 100%;
+  margin-right: 2%;
+  margin-top: 20px;
+  padding: 5%;
+  background: var(--bg-secundario);
+}
+</style>

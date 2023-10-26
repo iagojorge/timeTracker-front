@@ -1,4 +1,3 @@
-
 import axios, { AxiosInstance } from "axios";
 
 const clientHttp: AxiosInstance = axios.create({
@@ -6,4 +5,3 @@ const clientHttp: AxiosInstance = axios.create({
 });
 
 export default clientHttp;
-

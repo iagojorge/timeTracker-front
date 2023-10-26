@@ -1,34 +1,33 @@
 <template>
   <header>
-      <FormularioCronometro @emitSalvarTarefa="salvarProjeto"/>
+    <FormularioCronometro @emitSalvarTarefa="salvarProjeto" />
   </header>
 </template>
 
 <script lang="ts">
 import { defineComponent } from "vue";
-import FormularioCronometro from './FormularioCronometro.vue'
+import FormularioCronometro from "./FormularioCronometro.vue";
 import { useStore } from "@/store";
 import { ALTERAR_PROJETOS } from "@/store/tipo.acoes";
 import IProjeto from "@/interfaces/IProjeto";
 
 export default defineComponent({
   name: "MenuLateral",
-  components:{
-    FormularioCronometro
+  components: {
+    FormularioCronometro,
   },
-  setup(props){
+  setup(props) {
     const store = useStore();
 
     const salvarProjeto = function (projeto: IProjeto) {
-
       store.dispatch(ALTERAR_PROJETOS, projeto);
-    }
+    };
 
-    return{
+    return {
       store,
-      salvarProjeto
-    }
-  }
+      salvarProjeto,
+    };
+  },
 });
 </script>
 

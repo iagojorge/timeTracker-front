@@ -1,20 +1,23 @@
 <template>
   <section>
-      <div class="field is-grouped">
-          <p class="control">
-              <i class="fas fa-plus tema-button" @click="salvar" :class="{ 'icon-disabled': !nomeProjeto }"></i>
-          </p>
-        <p class="control is-expanded">
-          <input
+    <div class="field is-grouped">
+      <p class="control">
+        <i
+          class="fas fa-plus tema-button"
+          @click="salvar"
+          :class="{ 'icon-disabled': !nomeProjeto }"
+        ></i>
+      </p>
+      <p class="control is-expanded">
+        <input
           type="text"
           class="input input-filtro"
           placeholder="Nome do projeto"
           v-model="nomeProjeto"
           id="nomeProjeto"
         />
-        </p>
-      </div>
-
+      </p>
+    </div>
   </section>
 </template>
 
@@ -23,7 +26,11 @@ import { defineComponent, ref } from "vue";
 import { useStore } from "@/store";
 import { TipoNotificacao } from "@/interfaces/INotificacao";
 import useNotificador from "@/hooks/notificador";
-import { CADASTRAR_PROJETOS, ALTERAR_PROJETOS} from "@/store/tipo.acoes";
+import {
+  CADASTRAR_PROJETOS,
+  ALTERAR_PROJETOS,
+  OBTER_PROJETOS,
+} from "@/store/tipo.acoes";
 
 export default defineComponent({
   name: "FormularioProjeto",
@@ -31,7 +38,6 @@ export default defineComponent({
     id: {
       type: String,
     },
-
   },
   setup(props) {
     const store = useStore();
@@ -53,7 +59,7 @@ export default defineComponent({
         "Projeto salvo com sucesso!"
       );
       nomeProjeto.value = "";
-      location.reload();
+      store.dispatch(OBTER_PROJETOS);
     };
 
     const erroRota = function () {
@@ -87,26 +93,24 @@ export default defineComponent({
 </script>
 
 <style scoped>
-
-.input-filtro{
-  background-color: var( --bg-campo);
+.input-filtro {
+  background-color: var(--bg-campo);
   color: var(--text-campo);
   border: none;
 }
 
-.input-filtro::placeholder{
+.input-filtro::placeholder {
   color: var(--text-campo);
 }
 
-.tema-button{
+.tema-button {
   font-size: 40px;
   cursor: pointer;
   color: var(--texto-secundario);
 }
 
 .icon-disabled {
-  opacity: 0.5; 
-  pointer-events: none; 
+  opacity: 0.5;
+  pointer-events: none;
 }
-
 </style>

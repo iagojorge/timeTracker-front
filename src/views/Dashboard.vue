@@ -1,8 +1,11 @@
 <template>
-  <div class="columns is-gapless is-multiline dashboard" v-if="projetosProntos && carregandoDados">
+  <div
+    class="columns is-gapless is-multiline dashboard"
+    v-if="projetosProntos && carregandoDados"
+  >
     <div class="column is-7">
       <BoxGraficos>
-        <GraficosBar :semanaTempo="semanaTempo"/>
+        <GraficosBar :semanaTempo="semanaTempo" />
       </BoxGraficos>
     </div>
     <div class="column is-5">
@@ -45,19 +48,19 @@ export default defineComponent({
   name: "Dashboard",
   setup() {
     const store = useStore();
-    const semanaTempo = ref([])
+    const semanaTempo = ref([]);
     const projetosProntos = ref(false);
     const tempoDia = ref(0);
     const tempoSemana = ref(0);
     const tempoMes = ref(0);
-    const projetoTempo = ref([])
+    const projetoTempo = ref([]);
 
     const carregandoDados = ref(false);
 
     const obterProjetos = async () => {
       try {
         const response = await store.dispatch(OBTER_PROJETOS);
-        projetoTempo.value = response
+        projetoTempo.value = response;
         projetosProntos.value = true;
       } catch (erro) {
         console.error(erro);
@@ -65,22 +68,20 @@ export default defineComponent({
     };
 
     const obterDashboard = async () => {
-      try{
-        const response = await store.dispatch(OBTER_DASHBOARD)
+      try {
+        const response = await store.dispatch(OBTER_DASHBOARD);
         tempoDia.value = response.timeToday;
         tempoMes.value = response.timeMonth;
         tempoSemana.value = response.timeLastWeek;
         semanaTempo.value = response.timeWeek;
         carregandoDados.value = true;
-      } catch(erro) {
-      }
-    }
+      } catch (erro) {}
+    };
 
     onMounted(() => {
       obterProjetos();
       obterDashboard();
     });
-
 
     return {
       projetosProntos,
@@ -89,7 +90,7 @@ export default defineComponent({
       tempoDia,
       tempoSemana,
       tempoMes,
-      semanaTempo
+      semanaTempo,
     };
   },
   components: { GraficosBar, BoxGraficos, BoxPie, GraficosPie, BoxMini },
@@ -97,8 +98,7 @@ export default defineComponent({
 </script>
 
 <style scoped>
-
-.dashboard{
+.dashboard {
   height: 92vh;
 }
 .texto-desc {

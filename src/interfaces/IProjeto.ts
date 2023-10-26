@@ -3,10 +3,10 @@ export default interface IProjeto {
   name: string;
   timeSpent: [
     {
-      date: String,
-      time: Number,
-    },
-  ],
+      date: String;
+      time: Number;
+    }
+  ];
   timeTotalProject: number;
   timeTotalToday: number;
 }
