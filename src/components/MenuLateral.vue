@@ -43,6 +43,7 @@ header {
   header {
     padding: 2.5rem;
     height: auto;
+    padding: 0.9rem;
   }
 }
 </style>

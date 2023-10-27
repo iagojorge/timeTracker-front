@@ -20,11 +20,8 @@
           </Cronometro>
         </div>
         <div class="icons">
-          <i class="fa-solid fa-pen margin" @click="projetoClicado"></i>
-          <i
-            class="fa-solid fa-trash"
-            @click="excluir(projeto.id, projeto.name)"
-          ></i>
+            <i class="fa-solid fa-pen margin" @click="projetoClicado"></i>
+            <i class="fa-solid fa-trash" @click="excluir(projeto.id, projeto.name)"></i>
         </div>
       </div>
     </box>
@@ -121,5 +118,43 @@ export default defineComponent({
 
 .margin {
   margin-bottom: 5vw;
+}
+
+@media only screen and (max-width: 900px) {
+  .texto-tempo {
+    font-size: 4vw;
+  }
+
+  .texto-projeto{
+    font-size: 4vw;
+  }
+
+  .icons{
+    font-size: 3vw;
+  }
+
+}
+
+@media only screen and (max-width: 768px) {
+  .texto-tempo {
+    font-size: 4vw;
+  }
+
+  .texto-projeto{
+    font-size: 4vw;
+    margin-bottom: 10px;
+  }
+
+  .icons{
+    font-size: 7vw;
+    display: flex;
+    margin: 10px;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .icons > i{
+    margin: 10px;
+  }
 }
 </style>

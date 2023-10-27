@@ -4,8 +4,8 @@
       <RouterLink
         to="/"
         class="texto-nav"
-        :class="{ 'texto-nav-active': $route.path === '/' }"
-      >
+        :class="{ 'texto-nav-active': $route.path === '/' }"  
+        >
         Dashboard
       </RouterLink>
       /
@@ -16,25 +16,30 @@
       >
         Projetos
       </RouterLink>
-    </div>
-    <div class="column is-6">
-      <div class="field filtro">
-        <p class="control has-icons-left has-icons-right">
-          <input
-            class="input input-filtro"
-            type="text"
-            placeholder="Buscar projeto"
-            v-model="filtro"
-            :disabled="!disableInput"
-            :class="{ 'is-static': !disableInput }"
-          />
-          <span class="icon is-small is-left">
-            <i class="fas fa-search"></i>
-          </span>
-        </p>
+      
+      
+      <div class="dropdown is-right is-hoverable icon-dropdown"  v-if="larguraTela < 900">
+          <i class="fa-solid fa-bars icon-dropdown"  aria-controls="dropdown-menu4"></i>
+        <div class="dropdown-menu" id="dropdown-menu4" role="menu">
+          <div class="dropdown-content dropdownCustom">
+            <a href="#" class="dropdown-item dropdownCustom" @click="alterarTema" v-if="!modoEscuro">
+              Tema claro
+            </a>
+            <a href="#" class="dropdown-item dropdownCustom" @click="alterarTema" v-if="modoEscuro">
+              Tema escuro
+            </a>
+            <a href="#" class="dropdown-item dropdownCustom" @click="logout">
+              Sair
+            </a>
+          </div>
+        </div>
       </div>
     </div>
-    <div class="column is-1">
+    
+    <div class="column is-6" v-if="larguraTela >=900">
+
+    </div>
+    <div class="column is-1" v-if="larguraTela >= 900">
       <i
         class="fa-solid fa-moon temaButton margin"
         :class="{ 'fa-flip': flip }"
@@ -53,8 +58,8 @@
         :class="{ 'fa-spin': girando }"
       ></i>
     </div>
-    <div class="column is-2">
-      <div class="dropdown is-hoverable">
+    <div class="column is-1" v-if="larguraTela >= 900">
+      <div class="dropdown is-hoverable is-right">
         <div class="dropdown-trigger">
           <button
             class="button"
@@ -77,9 +82,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, ref, watchEffect } from "vue";
-import { useStore } from "@/store";
-import { OBTER_PROJETOS } from "@/store/tipo.acoes";
+import { defineComponent} from "vue";
 export default defineComponent({
   name: "MenuSuperior",
   emits: ["temaAlterado"],
@@ -89,6 +92,8 @@ export default defineComponent({
       flip: false,
       girando: false,
       disableInput: true,
+      larguraTela: window.innerWidth,
+      name: localStorage.getItem("name"),
     };
   },
   methods: {
@@ -106,40 +111,20 @@ export default defineComponent({
         location.reload();
       }, 1000);
     },
-    verificaRota() {
-      if (window.location.hash === "#/projetos") {
-        this.disableInput = true;
-      } else {
-        this.filtro = "";
-        this.disableInput = false;
-      }
-    },
     logout() {
       localStorage.clear();
       this.refresh();
     },
+    atualizarLarguraTela() {
+      this.larguraTela = window.innerWidth;
+    },
   },
-  created() {
-    this.verificaRota();
+  mounted() {
+    window.addEventListener("resize", this.atualizarLarguraTela);
   },
-  watch: {
-    $route: "verificaRota",
-  },
-  setup() {
-    const store = useStore();
-    const filtro = ref("");
-
-    const name = localStorage.getItem("name");
-
-    watchEffect(() => {
-      store.dispatch(OBTER_PROJETOS, filtro.value);
-    });
-
-    return {
-      filtro,
-      name,
-    };
-  },
+  beforeUnmount() {
+    window.removeEventListener("resize", this.atualizarLarguraTela);
+  }
 });
 </script>
 
@@ -149,23 +134,6 @@ export default defineComponent({
   box-shadow: rgba(0, 0, 0, 0.2) 0px 20px 30px;
   position: relative;
   z-index: 1;
-}
-.input-filtro {
-  background-color: var(--bg-campo);
-  color: var(--text-campo);
-  border: none;
-}
-
-input[disabled] {
-  cursor: default;
-}
-
-.input-filtro::placeholder {
-  color: var(--text-campo);
-}
-
-.filtro {
-  margin-top: -10px;
 }
 
 .menu-options {
@@ -177,10 +145,10 @@ input[disabled] {
   text-align: center;
   font-feature-settings: "cv11" on, "cv01" on, "ss01" on;
   font-family: Inter;
-  font-size: 1.5vw;
+  font-size: 1.6vw;
   font-style: normal;
   font-weight: bold;
-  line-height: 20px; /* 142.857% */
+  line-height: 20px;
 }
 
 .texto-nav-active {
@@ -213,5 +181,29 @@ input[disabled] {
 
 .margin {
   margin-right: 1vw;
+}
+
+.icon-dropdown{
+  position: absolute;
+  right: 0;
+  margin-right: 4vw;
+  font-size: 30px;
+  top: 10;
+}
+
+@media only screen and (max-width: 900px) {
+  .texto-nav {
+    font-size: 2.2vw;
+  }
+
+  .dropdown-menu{
+    margin-top: 30px;
+  }
+}
+
+@media only screen and (max-width: 600px) {
+  .texto-nav {
+    font-size: 4vw;
+  }
 }
 </style>

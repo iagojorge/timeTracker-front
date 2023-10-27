@@ -3,10 +3,13 @@
     <main :class="{ 'modo-escuro': modoEscuroAtivo }">
       <div class="main-layout">
         <div class="menu-lateral">
-          <MenuLateral />
+          <MenuLateral v-if="larguraTela > 900" />
         </div>
         <div class="conteudo">
           <MenuSuperior @temaAlterado="trocarTema" />
+          <div class="menu-lateral">
+            <MenuLateral v-if="larguraTela <= 900" />
+          </div>
           <!-- Rota do view -->
           <Notificacao />
           <RouterView></RouterView>
@@ -32,12 +35,22 @@ export default defineComponent({
   data() {
     return {
       modoEscuroAtivo: false,
+      larguraTela: window.innerWidth,
     };
   },
   methods: {
     trocarTema(modoEscuro: boolean) {
       this.modoEscuroAtivo = modoEscuro;
     },
+    atualizarLarguraTela() {
+      this.larguraTela = window.innerWidth;
+    },
+  },
+  mounted() {
+    window.addEventListener("resize", this.atualizarLarguraTela);
+  },
+  beforeUnmount() {
+    window.removeEventListener("resize", this.atualizarLarguraTela);
   },
 });
 </script>
@@ -48,9 +61,11 @@ body * {
 }
 
 body {
-  height: 100%;
   margin: 0;
   padding: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
 }
 
 main {
@@ -106,6 +121,20 @@ main.modo-escuro {
 @font-face {
   font-family: "relogio-fonte";
   src: url("@/assets/font/DS-DIGI.TTF") format("truetype");
-  /* Adicione outros formatos da fonte, se necessário */
+}
+
+@media (max-width: 900px) {
+  .main-layout {
+    flex-direction: column;
+  }
+
+  .menu-lateral {
+    width: 100%; 
+    order: 3;
+  }
+
+  .conteudo {
+    width: 100%;
+  }
 }
 </style>

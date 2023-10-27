@@ -1,47 +1,66 @@
 <template>
   <section>
-    <div class="field is-grouped">
+    <div class="field filtro is-grouped">
+      <p class="control has-icons-left has-icons-right is-expanded">
+        <input
+          class="input input-filtro"
+          type="text"
+          placeholder="Buscar projeto"
+          v-model="filtro"
+        />
+        <span class="icon is-small is-left">
+          <i class="fas fa-search"></i>
+        </span>
+      </p>
       <p class="control">
         <i
           class="fas fa-plus tema-button"
-          @click="salvar"
-          :class="{ 'icon-disabled': !nomeProjeto }"
+          @click="open"
         ></i>
-      </p>
-      <p class="control is-expanded">
-        <input
-          type="text"
-          class="input input-filtro"
-          placeholder="Nome do projeto"
-          v-model="nomeProjeto"
-          id="nomeProjeto"
-        />
       </p>
     </div>
   </section>
 </template>
 
 <script lang="ts">
-import { defineComponent, ref } from "vue";
+import { defineComponent, ref, watchEffect } from "vue";
 import { useStore } from "@/store";
-import { TipoNotificacao } from "@/interfaces/INotificacao";
-import useNotificador from "@/hooks/notificador";
+import Modal from "./Modal.vue";
 import {
-  CADASTRAR_PROJETOS,
-  ALTERAR_PROJETOS,
   OBTER_PROJETOS,
 } from "@/store/tipo.acoes";
 
 export default defineComponent({
   name: "FormularioProjeto",
+  components: {
+    Modal
+  },
   props: {
     id: {
       type: String,
     },
   },
+  emits: ["aoCriarProjeto"],
+  methods: {
+    adicionar(): void {
+      this.$emit("aoCriarProjeto");
+    },
+    close() {
+      this.abrirModal = false;
+      this.store.dispatch(OBTER_PROJETOS);
+    },
+    open(){
+      this.$emit("aoCriarProjeto");
+    }
+  },
+  data(){
+    return{
+      abrirModal: false,
+    }
+  },
   setup(props) {
     const store = useStore();
-    const { notificar } = useNotificador();
+    const filtro = ref("");
 
     const nomeProjeto = ref("");
 
@@ -52,41 +71,14 @@ export default defineComponent({
       nomeProjeto.value = projeto?.name || "";
     }
 
-    const sucessoRota = function () {
-      notificar(
-        TipoNotificacao.SUCESSO,
-        "Projeto",
-        "Projeto salvo com sucesso!"
-      );
-      nomeProjeto.value = "";
-      store.dispatch(OBTER_PROJETOS);
-    };
+    watchEffect(() => {
+      store.dispatch(OBTER_PROJETOS, filtro.value);
+    });
 
-    const erroRota = function () {
-      notificar(TipoNotificacao.ERRO, "Projeto", "Erro ao salvar o projeto");
-    };
-
-    const salvar = function () {
-      if (props.id) {
-        /*Edição*/
-        store
-          .dispatch(ALTERAR_PROJETOS, {
-            id: props.id,
-            nome: nomeProjeto.value,
-          })
-          .then(sucessoRota)
-          .catch(erroRota);
-      } else {
-        /*Adição*/
-        store
-          .dispatch(CADASTRAR_PROJETOS, nomeProjeto.value)
-          .then(sucessoRota)
-          .catch(erroRota);
-      }
-    };
     return {
       nomeProjeto,
-      salvar,
+      store,
+      filtro
     };
   },
 });

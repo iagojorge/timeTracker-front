@@ -39,4 +39,16 @@ export default defineComponent({
   box-sizing: border-box;
   text-align: center;
 }
+
+@media only screen and (max-width: 900px) {
+  .relogio {
+    font-size: 7vw;
+  }
+}
+
+@media only screen and (max-width: 768px) {
+  .relogio {
+    font-size: 10vw;
+  }
+}
 </style>

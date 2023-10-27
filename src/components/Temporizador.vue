@@ -101,4 +101,12 @@ export default defineComponent({
   justify-content: center;
   gap: 10px;
 }
+
+@media only screen and (max-width: 900px) {
+  .circle-button {
+    width: 10vw;
+    height: 10vw;
+    font-size: 4.5vw;
+  }
+}
 </style>

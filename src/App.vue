@@ -13,3 +13,10 @@ export default defineComponent({
   name: "App",
 });
 </script>
+
+<style>
+main{
+  margin: 0;
+}
+</style>
+
