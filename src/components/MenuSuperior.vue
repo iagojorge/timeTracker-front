@@ -61,13 +61,7 @@
     <div class="column is-1" v-if="larguraTela >= 900">
       <div class="dropdown is-hoverable is-right">
         <div class="dropdown-trigger">
-          <button
-            class="button"
-            aria-haspopup="true"
-            aria-controls="dropdown-menu4"
-          >
-            <i class="fa-solid fa-user temaButton">{{ name }}</i>
-          </button>
+            <i class="fa-solid fa-user temaButton" aria-controls="dropdown-menu4">{{ name }}</i>
         </div>
         <div class="dropdown-menu" id="dropdown-menu4" role="menu">
           <div class="dropdown-content dropdownCustom">

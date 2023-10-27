@@ -90,4 +90,10 @@ export default defineComponent({
   align-items: flex-end;
   height: 500px;
 }
+@media (max-width: 600px) {
+  .chart-container {
+    height: 300px;
+  }
+}
+
 </style>

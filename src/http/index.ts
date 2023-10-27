@@ -1,7 +1,7 @@
 import axios, { AxiosInstance } from "axios";
 
 const clientHttp: AxiosInstance = axios.create({
-  baseURL: "http://localhost:3000/",
+  baseURL: "https://time-tracker-dev-api.onrender.com/",
 });
 
 export default clientHttp;

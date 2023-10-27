@@ -26,7 +26,13 @@ export default defineComponent({
 
 @media (max-width: 768px) {
   .box {
-    width: 90%;
+    width: 95%;
+    padding: 10px;
+  }
+}
+
+@media (max-width: 600px) {
+  .box {
     padding: 10px;
   }
 }

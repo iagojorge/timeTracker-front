@@ -14,6 +14,7 @@ export default defineComponent({
 
 <style scoped>
 .box {
+  width: 90%;
   border-radius: 7%;
   margin-left: 4%;
   margin-right: 3%;
@@ -22,22 +23,14 @@ export default defineComponent({
   background: var(--bg-secundario);
 }
 
-@media (max-width: 768px) {
+@media (max-width: 900px) {
   .box {
-    width: 90%;
-    padding: 10px;
-  }
-}
-
-@media (min-width: 769px) and (max-width: 1200px) {
-  .box {
-    width: 80%;
-  }
-}
-
-@media (min-width: 1201px) {
-  .box {
-    width: 87%;
+    width: 95%;
+    border-radius: 7%;
+    margin-left: 2%;
+    margin-right: 3%;
+    margin-top: 5vw;
+    padding: 5%;
   }
 }
 </style>
