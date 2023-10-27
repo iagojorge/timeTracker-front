@@ -83,8 +83,8 @@ export default defineComponent({
             display: false,
           },
         },
-        responsive: true, // Tornar o gráfico responsivo
-        maintainAspectRatio: true, // Não manter uma proporção de aspecto fixa
+        responsive: true, 
+        maintainAspectRatio: true, 
       },
     };
 
@@ -98,9 +98,16 @@ export default defineComponent({
 .chart-container {
   display: flex;
   flex-direction: column;
-  align-items: flex-end;
-  height: 500px; 
+  align-items: center;
+  height: 500px;
 }
+
+@media (max-width: 600px) {
+  .chart-container {
+    height: 300px;
+  }
+}
+
 #myChartPie {
   position: sticky;
 }

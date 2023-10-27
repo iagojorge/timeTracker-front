@@ -23,7 +23,6 @@ export default defineComponent({
     let labelsRota: string[] = [];
     let dataRota: number[] = [];
 
-
     for (let i = 6; i >= 0; i--) {
       labelsRota.push(this.semanaTempo[i].name);
       dataRota.push(this.semanaTempo[i].time);
@@ -74,7 +73,7 @@ export default defineComponent({
             display: false,
           },
         },
-        responsive: true, 
+        responsive: true,
         maintainAspectRatio: false,
       },
     };
@@ -89,6 +88,12 @@ export default defineComponent({
   display: flex;
   flex-direction: column;
   align-items: flex-end;
-  height: 500px; 
+  height: 500px;
 }
+@media (max-width: 600px) {
+  .chart-container {
+    height: 300px;
+  }
+}
+
 </style>

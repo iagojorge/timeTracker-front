@@ -15,5 +15,8 @@ export default defineComponent({
 </script>
 
 <style>
-
+main{
+  margin: 0;
+}
 </style>
+

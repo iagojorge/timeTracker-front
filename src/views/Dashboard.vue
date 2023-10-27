@@ -1,8 +1,11 @@
 <template>
-  <div class="columns is-gapless is-multiline dashboard" v-if="projetosProntos && carregandoDados">
+  <div
+    class="columns is-gapless is-multiline dashboard"
+    v-if="projetosProntos && carregandoDados"
+  >
     <div class="column is-7">
       <BoxGraficos>
-        <GraficosBar :semanaTempo="semanaTempo"/>
+        <GraficosBar :semanaTempo="semanaTempo" />
       </BoxGraficos>
     </div>
     <div class="column is-5">
@@ -11,7 +14,7 @@
       </BoxPie>
     </div>
     <div class="column is-4">
-      <BoxMini>
+      <BoxMini class="margin">
         <h1 class="texto-desc">ULTIMO MÊS</h1>
         <h1 class="tempo">{{ tempoMes }}</h1>
       </BoxMini>
@@ -23,7 +26,7 @@
       </BoxMini>
     </div>
     <div class="column is-4">
-      <BoxMini>
+      <BoxMini class="margin-left">
         <h1 class="texto-desc">HOJE</h1>
         <h1 class="tempo">{{ tempoDia }}</h1>
       </BoxMini>
@@ -45,19 +48,19 @@ export default defineComponent({
   name: "Dashboard",
   setup() {
     const store = useStore();
-    const semanaTempo = ref([])
+    const semanaTempo = ref([]);
     const projetosProntos = ref(false);
     const tempoDia = ref(0);
     const tempoSemana = ref(0);
     const tempoMes = ref(0);
-    const projetoTempo = ref([])
+    const projetoTempo = ref([]);
 
     const carregandoDados = ref(false);
 
     const obterProjetos = async () => {
       try {
         const response = await store.dispatch(OBTER_PROJETOS);
-        projetoTempo.value = response
+        projetoTempo.value = response;
         projetosProntos.value = true;
       } catch (erro) {
         console.error(erro);
@@ -65,22 +68,20 @@ export default defineComponent({
     };
 
     const obterDashboard = async () => {
-      try{
-        const response = await store.dispatch(OBTER_DASHBOARD)
+      try {
+        const response = await store.dispatch(OBTER_DASHBOARD);
         tempoDia.value = response.timeToday;
         tempoMes.value = response.timeMonth;
         tempoSemana.value = response.timeLastWeek;
         semanaTempo.value = response.timeWeek;
         carregandoDados.value = true;
-      } catch(erro) {
-      }
-    }
+      } catch (erro) {}
+    };
 
     onMounted(() => {
       obterProjetos();
       obterDashboard();
     });
-
 
     return {
       projetosProntos,
@@ -89,7 +90,7 @@ export default defineComponent({
       tempoDia,
       tempoSemana,
       tempoMes,
-      semanaTempo
+      semanaTempo,
     };
   },
   components: { GraficosBar, BoxGraficos, BoxPie, GraficosPie, BoxMini },
@@ -97,9 +98,11 @@ export default defineComponent({
 </script>
 
 <style scoped>
-
-.dashboard{
-  height: 92vh;
+.dashboard {
+  width: 100%;
+  min-height: 92vh;
+  height: 100%;
+  box-sizing: border-box;
 }
 .texto-desc {
   color: var(--texto-primario);
@@ -115,5 +118,43 @@ export default defineComponent({
   color: var(--texto-primario);
   font-size: 4vw;
   text-align: center;
+}
+
+.margin{
+  margin-top: 2.5vw;
+}
+
+.margin-left{
+  padding-right: 20px;
+}
+
+@media only screen and (max-width: 768px) {
+.tempo{
+  font-size: 10vw;
+}
+
+.texto-desc{
+  font-size: 4vw;
+  margin-top: 10px;
+}
+
+}
+
+@media screen and (max-width: 900px) {
+  .columns.dashboard .column {
+    width: 100% !important;
+  }
+  .tempo{
+    font-size: 8vw;
+  }
+  
+  .texto-desc{
+    font-size: 3vw;
+    margin-top: 10px;
+  }
+  
+  .margin{
+    margin-top: 6vw;
+  }
 }
 </style>

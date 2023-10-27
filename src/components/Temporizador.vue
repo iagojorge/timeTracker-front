@@ -3,17 +3,26 @@
     <cronometro :tempoSegundos="tempoSegundos" />
   </div>
   <div class="button-container">
-    <a class="circle-button red" v-if="!cronometroRodando" @click="iniciar" :class="{ 'icon-disabled': !projetoSelecionado }">
+    <a
+      class="circle-button red"
+      v-if="!cronometroRodando"
+      @click="iniciar"
+      :class="{ 'icon-disabled': !projetoSelecionado }"
+    >
       <span class="icon">
         <i class="fas fa-play"></i>
       </span>
     </a>
-    <a  class="circle-button red" v-if="cronometroRodando" @click="pause" >
+    <a class="circle-button red" v-if="cronometroRodando" @click="pause">
       <span class="icon">
         <i class="fas fa-pause"></i>
       </span>
     </a>
-    <a  class="circle-button" @click="finalizar" :class="{ 'icon-disabled': !tempoSegundos || !projetoSelecionado }">
+    <a
+      class="circle-button"
+      @click="finalizar"
+      :class="{ 'icon-disabled': !tempoSegundos || !projetoSelecionado }"
+    >
       <span class="icon">
         <i class="fas fa-stop"></i>
       </span>
@@ -32,7 +41,7 @@ export default defineComponent({
     Cronometro,
   },
   props: {
-    projetoSelecionado: String
+    projetoSelecionado: String,
   },
   emits: ["temporizadorFim"],
   data() {
@@ -44,13 +53,11 @@ export default defineComponent({
   },
   methods: {
     iniciar() {
+      this.cronometroRodando = true;
 
-        this.cronometroRodando = true;
-        
-
-        this.cronometro = setInterval(() => {
-            this.tempoSegundos += 1;
-         }, 1000);
+      this.cronometro = setInterval(() => {
+        this.tempoSegundos += 1;
+      }, 1000);
     },
     finalizar() {
       this.cronometroRodando = false;
@@ -58,7 +65,7 @@ export default defineComponent({
       this.$emit("temporizadorFim", this.tempoSegundos);
       this.tempoSegundos = 0;
     },
-    pause(){
+    pause() {
       this.cronometroRodando = false;
       clearInterval(this.cronometro);
     },
@@ -67,31 +74,39 @@ export default defineComponent({
 </script>
 
 <style scoped>
+.circle-button {
+  width: 3.5vw;
+  height: 3.5vw;
+  background-color: #4c4c4c;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
+  color: #fff;
+  font-size: 1.5vw;
+}
+
+.icon-disabled {
+  opacity: 0.5;
+  pointer-events: none;
+}
+
+.red {
+  background-color: red;
+}
+
+.button-container {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+}
+
+@media only screen and (max-width: 900px) {
   .circle-button {
-    width: 3.5vw;
-    height: 3.5vw;
-    background-color: #4c4c4c; 
-    border-radius: 50%; 
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    text-decoration: none;
-    color: #fff; 
-    font-size: 1.5vw; 
+    width: 10vw;
+    height: 10vw;
+    font-size: 4.5vw;
   }
-
-  .icon-disabled {
-    opacity: 0.5; 
-    pointer-events: none; 
-  }
-
-  .red{
-    background-color: red;
-  }
-
-  .button-container {
-    display: flex; 
-    justify-content: center; 
-    gap: 10px; 
-  }
+}
 </style>
